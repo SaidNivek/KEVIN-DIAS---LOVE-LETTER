@@ -43,8 +43,10 @@ Create simple structure of HTML elements with basic CSS elements/styling. Create
 ## Stretch Goals
 ### As a user:
 - I want to have a confirmation of which card I want to discard (just in case).
-- Have two hands that I can play against myself (not a dummy opponent).
-- Have a simple AI that can select cards to play based on card rules.
+- I want to have a confirmation of my Guard Guess choice.
+- I want to have a check to see if all of one card has been played, to remove it from the Guard Guess as an option (ex, can't choose Priest if both have already been played and are seen on the board).
+- I want to have two hands that I can play against myself (not a dummy opponent).
+- I want to have a simple AI that can select cards to play based on card rules.
 
 ## Rules
 
