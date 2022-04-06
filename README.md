@@ -7,6 +7,13 @@ Browser-based recreation of the card-game Love Letter.  The goal of the game is 
 Create simple structure of HTML elements with basic CSS elements/styling. Create array of objects of cards with basic information (value, name, rule text).  Create deck based on card objects.  Ensure deck has correct number of card values and total cards.  Instantiate player objects (current card, drawn card, active player's turn, total points, more as necessary).  Query DOM elements.  Ensure players are able to interact with DOM elements as needed (draw card from deck, see rules, see card values and rules sections).   Implement turn structure (draw, discard, card effect takes place).  Implement card rules with a dummy opponent.  Implement round end scenarios and point calculations.  Implement card rules with two players (both controlled by the user for now).  Stretch - simple AI for card selection for AI-controlled opponent.
 
 ## Wire Frames
+### Game Board
+![image](https://user-images.githubusercontent.com/89223981/162040244-1ee0ac43-e84e-482d-95ff-bc91633828e8.png)
+### Rules Modals / Pop-ins
+![image](https://user-images.githubusercontent.com/89223981/162040403-50961f99-d7e8-4370-8fea-6ecc220e9e7e.png)
+### Guard Guess Area
+![image](https://user-images.githubusercontent.com/89223981/162040499-20062ac2-5b26-457c-a9a6-b16038ca34f8.png)
+
 
 
 ## User Stories
