@@ -54,13 +54,31 @@ table {
 body {
     display: flex;
     gap: 15px;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .gameboard-div {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    height: 100vh;
+    justify-content: space-between;
+}
 
+.guard-guess, .win-tokens, .card-in-hand, .deck {
+    border: 1px solid black;
+    height: 200px;
+    width: 200px;
+    margin: 15px 0;
+}
+
+.discarded-card {
+    height: 100px;
+    width: 200px;
+    border: 1px solid black;
 }
 
 #play-area-mat {
@@ -70,7 +88,16 @@ body {
 
 #opponent-mat, #player-mat {
     display: flex;
-    gap: 15px;
+    gap: 15px;    
+    justify-content: center;
+    align-items: center;
+}
 
+#discarded-card-area {
+    display: flex;
+    gap: 15px; 
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
