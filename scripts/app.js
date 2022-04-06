@@ -1,6 +1,35 @@
 // pseudo code
 // Click the start game button to enable the game to be played
-// Make sure the rules modals/pop-ins are clickable and viewable
+
+
+// Get the objects from the DOM for the general game rules modal
+const $generalRulesOpenButton = $('#open-general-rules-modal');
+const $generalRulesModal = $('#general-rules-modal');
+const $generalRulesCloseButton = $('#general-rules-close')
+// Get the objects from the DOM for the card game rules modal
+const $cardRulesOpenButton = $('#open-card-rules-modal')
+const $cardRulesModal = $('#card-rules-modal');
+const $cardRulesCloseButton = $('#card-rules-close')
+
+// Set listeners to open the general and card rule modals
+$generalRulesOpenButton.click(function() {
+    $generalRulesModal.css('display', 'block')
+})
+$cardRulesOpenButton.click(function() {
+    $cardRulesModal.css('display', 'block')
+})
+// Set listeners to close the general and card rule modals
+$generalRulesCloseButton.click(function() {
+    $generalRulesModal.css('display', 'none')
+})
+$cardRulesCloseButton.click(function() {
+    $cardRulesModal.css('display', 'none')
+})
+
+
+
+
+
 // Objects for the cards, with values, image, rules, number in deck, and name assigned
 // Deck object for all of the cards to be contained within
 // Player objects for their current card, drawn card, current player, and points
