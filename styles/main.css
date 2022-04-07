@@ -113,6 +113,20 @@ p {
     border: 1px solid black;
 }
 
+.card-in-hand {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+
+}
+
+.card-in-hand > * {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
 #start-game-div {
     display: flex;
     flex-direction: column;

@@ -72,6 +72,8 @@ const $generalRulesCloseButton = $('#general-rules-close')
 const $cardRulesOpenButton = $('#open-card-rules-modal')
 const $cardRulesModal = $('#card-rules-modal');
 const $cardRulesCloseButton = $('#card-rules-close')
+// Get the objects for player card 1
+
 
 // Listeners
 // Set listener to start the game and start the game!
