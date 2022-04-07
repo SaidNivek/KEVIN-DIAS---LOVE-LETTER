@@ -58,8 +58,25 @@ const cards = [
         numInDeck: 1,
     },
 ]
-// Deck object for all of the cards to be contained within
+
+// Objects for the player and opponent, to keep track of active player and points
+// Might not need currentPlayer key, if using if(player[0.name] === currentPlayer) to check current turn
+const players = [
+    player1 = {
+        name: "player1",
+        points: 0,
+        currentPlayer: false,
+    },
+    opponent = {
+        name: "opponent",
+        points: 0,
+        currentPlayer: false,
+    },
+]
+
+// Deck array for all of the cards to be contained within it for drawing
 let deck = []
+let removedCard = {}
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
@@ -86,6 +103,43 @@ const $playerCard2Value = $('#player-card-2-value')
 const $playerCard2Name = $('#player-card-2-name')
 const $playerCard2Image = $('#player-card-2-image')
 const $playerCard2Rules = $('#player-card-2-rules')
+// Get DOM objects for the draw deck and the removed card position
+const $drawDeck = $('#draw-deck')
+const $removedCard = $('#removed-card')
+
+
+
+setPlayerCard1()
+setPlayerCard2()
+
+
+// Listeners
+// Set listener to start the game and start the game!
+// Create the deck and set the remaining cards in the deck to the value held within.
+$playButton.click(function() {
+    $gameBoard.css('display', 'flex')
+    $startGameDiv.css('display', 'none')
+    deck = createDeck()
+    console.log(deck)
+    removedCard = removeTopCard();
+    console.log(deck)
+    $drawDeck.text(`Cards Remianing: ${deck.length}`)
+}) 
+
+// Set listeners to open the general and card rule modals
+$generalRulesOpenButton.click(function() {
+    $generalRulesModal.css('display', 'block')
+})
+$cardRulesOpenButton.click(function() {
+    $cardRulesModal.css('display', 'block')
+})
+// Set listeners to close the general and card rule modals
+$generalRulesCloseButton.click(function() {
+    $generalRulesModal.css('display', 'none')
+})
+$cardRulesCloseButton.click(function() {
+    $cardRulesModal.css('display', 'none')
+})
 
 // This function will set the 1st card of player 1 to the passed in card, drawn from the deck
 function setPlayerCard1() {
@@ -117,32 +171,10 @@ function createDeck() {
     }
     return randomizedDeck
 }
-
-setPlayerCard1()
-setPlayerCard2()
-deck = createDeck()
-
-// Listeners
-// Set listener to start the game and start the game!
-$playButton.click(function() {
-    $gameBoard.css('display', 'flex')
-    $startGameDiv.css('display', 'none')
-}) 
-// Set listeners to open the general and card rule modals
-$generalRulesOpenButton.click(function() {
-    $generalRulesModal.css('display', 'block')
-})
-$cardRulesOpenButton.click(function() {
-    $cardRulesModal.css('display', 'block')
-})
-// Set listeners to close the general and card rule modals
-$generalRulesCloseButton.click(function() {
-    $generalRulesModal.css('display', 'none')
-})
-$cardRulesCloseButton.click(function() {
-    $cardRulesModal.css('display', 'none')
-})
-
+// This function removes the top card from the game to provide some randomness to the rest of the game, specifically guard guesses
+function removeTopCard() {
+    return deck.splice(0, 1)
+}
 
 
 // Player objects for their current card, drawn card, current player, and points
