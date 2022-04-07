@@ -44,7 +44,14 @@
     <div class="gameboard-div">
         <div id="opponent-mat">
             <div id="opponent-guard-guess" class="guard-guess">opponent guard guess</div>
-            <div id="opponent-card-1" class="card-in-hand">opponent card 1</div>
+            <div id="opponent-card-1" class="card-in-hand">
+                <div>
+                    <div id="opponent-card-1-value">Value</div>
+                    <div id="opponent-card-1-name">Name of Card</div>
+                </div>
+                <div id="opponent-card-1-image">Image</div>
+                <div id="opponent-card-1-rules">Rule Text</div>
+            </div>
             <div id="opponent-card-2" class="card-in-hand">opponent card 2</div>
             <div id="opponent-win-tokens" class="win-tokens">opponent win tokens</div>
         </div>
@@ -56,15 +63,17 @@
             </div>
             <div id="discarded-card-area">
                 <div id="discarded-cards-row-1">
-                    <div id="discarded-guard" class="discarded-card">discard guard</div>
-                    <div id="discarded-priest" class="discarded-card">discard priest</div>
-                    <div id="discarded-baron" class="discarded-card">discard baron</div>
-                    <div id="discarded-handmaid" class="discarded-card">discard handmaid</div>
+                    <div class="discarded-card">Guards Discarded:<span id="discarded-guard">0</span> / 5</div>
+                    <div class="discarded-card">Priests Discarded: <span id="discarded-priest">0</span> / 2</div>
+                    <div class="discarded-card">Barons Discarded: <span id="discarded-baron">0</span> / 2</div>
+                    <div class="discarded-card">Handmaids Discarded: <span id="discarded-handmaid">0</span> / 2</div>
+                    
                 </div>
                 <div id="discarded-cards-row-2">
-                    <div id="discarded-prince" class="discarded-card">discard prince</div>
-                    <div id="discarded-king" class="discarded-card">discard king</div>
-                    <div id="discarded-countess" class="discarded-card">discard countess</div>
+                    <div class="discarded-card">Princes Discarded: <span id="discarded-prince">0</span> / 2</div>
+                    <div class="discarded-card">King Discarded:<span id="discarded-king">0</span> / 1</div>
+                    <div class="discarded-card">Countess Discarded: <span id="discarded-countess">0</span> / 1</div>
+                    <div class="discarded-card">Princess Discarded: <span id="discarded-princess">0</span> / 1</div>
                 </div>
                 
 
