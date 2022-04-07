@@ -24,7 +24,7 @@ const cards = [
     },
     handmaid = {
         name: "Handmaid",
-        value: 4,        
+        value: 5,        
         image: "Handmaid Image",
         rules: "Until your next turn, ignore all effects from opponent's cards.",
         numInDeck: 2,
@@ -58,6 +58,8 @@ const cards = [
         numInDeck: 1,
     },
 ]
+// Deck object for all of the cards to be contained within
+let deck = []
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
@@ -85,13 +87,14 @@ const $playerCard2Name = $('#player-card-2-name')
 const $playerCard2Image = $('#player-card-2-image')
 const $playerCard2Rules = $('#player-card-2-rules')
 
+// This function will set the 1st card of player 1 to the passed in card, drawn from the deck
 function setPlayerCard1() {
-    $playerCard1Value.text(cards[0].value)
-    $playerCard1Name.text(cards[0].name)
-    $playerCard1Image.text(cards[0].image)
-    $playerCard1Rules.text(cards[0].rules)
+    $playerCard1Value.text(cards[6].value)
+    $playerCard1Name.text(cards[6].name)
+    $playerCard1Image.text(cards[6].image)
+    $playerCard1Rules.text(cards[6].rules)
 }
-
+// This function will set the 2nd card of player 1 to the passed in card, drawn from the deck
 function setPlayerCard2() {
     $playerCard2Value.text(cards[7].value)
     $playerCard2Name.text(cards[7].name)
@@ -99,8 +102,25 @@ function setPlayerCard2() {
     $playerCard2Rules.text(cards[7].rules)
 }
 
+// This function returns a randomized deck of cards, with the correct number of each card, as denoted in the individual card's object
+function createDeck() {
+    let aDeck = []
+    let randomizedDeck = []
+    for(let i = 0; i < cards.length; i++) {
+        for(let j = 0; j < cards[i].numInDeck; j++) {
+            aDeck.push(cards[i])
+        }
+    }
+    while(aDeck.length > 0) {
+        let aCard = aDeck.splice([Math.floor(Math.random() * aDeck.length)], 1)[0]
+        randomizedDeck.push(aCard)
+    }
+    return randomizedDeck
+}
+
 setPlayerCard1()
 setPlayerCard2()
+deck = createDeck()
 
 // Listeners
 // Set listener to start the game and start the game!
@@ -124,7 +144,7 @@ $cardRulesCloseButton.click(function() {
 })
 
 
-// Deck object for all of the cards to be contained within
+
 // Player objects for their current card, drawn card, current player, and points
 // Populate the deck with the correct cards (values and numbers for each value)
 // Randomly remove one card and keep it face down (not used this game)
