@@ -163,6 +163,12 @@ p {
     justify-content: space-evenly;
 }
 
+.discarded-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 #general-rules-modal  {
     background-color: rgba(0,0,0,0.4);
 	position: fixed;
