@@ -148,7 +148,8 @@ p {
     gap: 15px;
 }
 
-#opponent-mat, #player-mat, #draw-deck, #discarded-cards-row-2, #discarded-cards-row-1 {
+#opponent-mat, #player-mat, .deck, #discarded-cards-row-2, #discarded-cards-row-1,
+.win-tokens, .guard-guess, #opponent-card-2 {
     display: flex;
     gap: 15px;    
     justify-content: center;
