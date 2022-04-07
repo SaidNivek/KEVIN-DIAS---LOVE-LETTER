@@ -176,9 +176,6 @@ function removeTopCard() {
     return deck.splice(0, 1)
 }
 
-
-// Player objects for their current card, drawn card, current player, and points
-// Populate the deck with the correct cards (values and numbers for each value)
 // Randomly remove one card and keep it face down (not used this game)
 // Draw one card for the player (assign a dummy card to the opponent at first)
 // Ensure that all parts of the card are displayed and showing properly
