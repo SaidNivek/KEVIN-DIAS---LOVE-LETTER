@@ -73,7 +73,34 @@ const $cardRulesOpenButton = $('#open-card-rules-modal')
 const $cardRulesModal = $('#card-rules-modal');
 const $cardRulesCloseButton = $('#card-rules-close')
 // Get the objects for player card 1
+const $playerCard1 = $('#player-card-1')
+const $playerCard1Value = $('#player-card-1-value')
+const $playerCard1Name = $('#player-card-1-name')
+const $playerCard1Image = $('#player-card-1-image')
+const $playerCard1Rules = $('#player-card-1-rules')
+//Get the objects for player card 2
+const $playerCard2 = $('#player-card-2')
+const $playerCard2Value = $('#player-card-2-value')
+const $playerCard2Name = $('#player-card-2-name')
+const $playerCard2Image = $('#player-card-2-image')
+const $playerCard2Rules = $('#player-card-2-rules')
 
+function setPlayerCard1() {
+    $playerCard1Value.text(cards[0].value)
+    $playerCard1Name.text(cards[0].name)
+    $playerCard1Image.text(cards[0].image)
+    $playerCard1Rules.text(cards[0].rules)
+}
+
+function setPlayerCard2() {
+    $playerCard2Value.text(cards[7].value)
+    $playerCard2Name.text(cards[7].name)
+    $playerCard2Image.text(cards[7].image)
+    $playerCard2Rules.text(cards[7].rules)
+}
+
+setPlayerCard1()
+setPlayerCard2()
 
 // Listeners
 // Set listener to start the game and start the game!
