@@ -1,6 +1,7 @@
-// pseudo code
-// Click the start game button to enable the game to be played
-
+// Get the object for the play button to reveal the board
+const $playButton = $('#play-button')
+const $gameBoard = $('.gameboard-div')
+const $startGameDiv = $('#start-game-div')
 
 // Get the objects from the DOM for the general game rules modal
 const $generalRulesOpenButton = $('#open-general-rules-modal');
@@ -10,6 +11,19 @@ const $generalRulesCloseButton = $('#general-rules-close')
 const $cardRulesOpenButton = $('#open-card-rules-modal')
 const $cardRulesModal = $('#card-rules-modal');
 const $cardRulesCloseButton = $('#card-rules-close')
+
+
+
+
+// pseudo code
+// Click the start game button to enable the game to be played
+
+
+// Set listener to start the game
+$playButton.click(function() {
+    $gameBoard.css('display', 'flex')
+    $startGameDiv.css('display', 'none')
+}) 
 
 // Set listeners to open the general and card rule modals
 $generalRulesOpenButton.click(function() {

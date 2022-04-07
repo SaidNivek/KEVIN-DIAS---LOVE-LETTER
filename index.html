@@ -15,21 +15,30 @@
 </head>
 <body>
 
-        <button id="open-general-rules-modal">General Game Rules</button>
-        <div id="general-rules-modal">
-            <div id="general-rules-modal-textbox">
-                <a id="general-rules-close" href="#">Close</a>
-                <h2>General Rules of Love Letter</h2>
-                <h3>Setup</h3>
-                    <p>Shuffle the 16 card deck and remove the top card from the deck without looking at it, which will not be used in this game. In two-player games, take 3 more cards from the top of the deck and place them to the side, face up. Each player draws one card from the deck. Player 1 (the user) will go first.</p>
-                <h3>Taking a Turn</h3>
-                    <p>The current player draws the top card from the deck. Current player chooses one of the two cards in your hand and discards it face up. The effect/rule on the card then takes place, with any actions being followed by the current player. The next player will then take their turn. Each player will only have one card in hand at a time, except while selecting which of the two cards to discard on their turn.</p>                
-                <h3>End of a Round</h3>
-                    <p>A round ends in one of two ways: <br>1 - Only one player remains in the round, through the use of various card rules. The player who remains in the game is the winner of this round and receives a token of affection. <br>2 - The current player cannot draw a card from the deck (either at the start of their turn or through a discard effect which would require a draw). The winner of this round is the player with the highest-valued card and receives a token of affection. If both players have the same value, the round is a tie.</p>
-                <h3>Winning the Game</h3>
-                    <p>The player who makes it to 3 wins first is the ultimate winner of the Princess' affections, and whisks her away to be wed!</p>
-            </div>        
-        </div>
+    <div id="start-game-div">
+        <h1>Love Letter</h1>
+        <p>In the wake of the arrest of Queen Marianna for high treason, none was more heartbroken than her daughter, Princess Annette. Suitors throughout the City-State of Tempest sought to ease Annette's sorrow by courting her, seeking to bring some joy into her life.</p>
+        <p>You are one of these suitors, trying to get your love letter to the Princess. Unfortunately, she has locked herself in the palace, so you must rely on intermediaries to carry your message.</p>
+        <p>During the game, you hold one secret card in your hand. This is who currently carries your message of love for the Princess. Make sure that the person closest to the Princess holds your love letter at the end of the day, so it reaches her first!</p>
+        <button id="play-button">Play</button>
+    </div>
+    
+    
+    <button id="open-general-rules-modal">General Game Rules</button>
+    <div id="general-rules-modal">
+        <div id="general-rules-modal-textbox">
+            <a id="general-rules-close" href="#">Close</a>
+            <h2>General Rules of Love Letter</h2>
+            <h3>Setup</h3>
+                <p>Shuffle the 16 card deck and remove the top card from the deck without looking at it, which will not be used in this game. In two-player games, take 3 more cards from the top of the deck and place them to the side, face up. Each player draws one card from the deck. Player 1 (the user) will go first.</p>
+            <h3>Taking a Turn</h3>
+                <p>The current player draws the top card from the deck. Current player chooses one of the two cards in your hand and discards it face up. The effect/rule on the card then takes place, with any actions being followed by the current player. The next player will then take their turn. Each player will only have one card in hand at a time, except while selecting which of the two cards to discard on their turn.</p>                
+            <h3>End of a Round</h3>
+                <p>A round ends in one of two ways: <br>1 - Only one player remains in the round, through the use of various card rules. The player who remains in the game is the winner of this round and receives a token of affection. <br>2 - The current player cannot draw a card from the deck (either at the start of their turn or through a discard effect which would require a draw). The winner of this round is the player with the highest-valued card and receives a token of affection. If both players have the same value, the round is a tie.</p>
+            <h3>Winning the Game</h3>
+                <p>The player who makes it to 3 wins first is the ultimate winner of the Princess' affections, and whisks her away to be wed!</p>
+        </div>        
+    </div>
 
     <div class="gameboard-div">
         <div id="opponent-mat">
@@ -77,7 +86,7 @@
             <h3>3 - Baron</h3>
                 <p>2 in deck. Compare hands with the other player. The player with the lowar value is out of the round and you win the game. Tied values are ignored and play resumes as normal.</p>
             <h3>4 - Handmaid</h3>
-                <p>2 in deck. Until your next turn, ignore all effects from other players that would effect you (cards 1, 2, 3, 5, and 6).</p>
+                <p>2 in deck. Until your next turn, ignore all effects from other players that would affect you (cards 1, 2, 3, 5, and 6).</p>
             <h3>5 - Prince</h3>
                 <p>2 in deck. Choose yourself or another player to discard their hand and draw a new card. This can force yourself to lose the game if you discard the Princess or discard and there are no cards left in the deck to draw (in which case your card value will be 0 when comparing to another player). This can happen when the opponent is under the effect of #4, the Handmaid.</p>
             <h3>6 - King</h3>

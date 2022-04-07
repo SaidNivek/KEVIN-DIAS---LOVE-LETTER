@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap');
+
+
 /* CSS Reset */
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -50,6 +53,9 @@ table {
 }
 
 /* My Actual CSS */
+* {
+    box-sizing: border-box;
+}
 
 body {
     display: flex;
@@ -58,6 +64,11 @@ body {
     height: 100vh;
     justify-content: space-between;
     align-items: center;
+}
+
+h1 {
+    font-size: 88px;
+    font-family: 'Lavishly Yours', cursive;
 }
 
 h2 {
@@ -77,7 +88,10 @@ p {
     flex-direction: column;
     gap: 15px;
     height: 100vh;
+    width: 80vw;
+    min-width: 642px;
     justify-content: space-between;
+    display: none;
 }
 
 .guard-guess, .win-tokens, .card-in-hand, .deck {
@@ -91,6 +105,21 @@ p {
     height: 100px;
     width: 200px;
     border: 1px solid black;
+}
+
+#start-game-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    border: 1px solid black;
+    height: 50%;
+    width: 50%;
+    padding: 50px;
 }
 
 #play-area-mat {
@@ -157,9 +186,16 @@ p {
 	/*This will give the box some depth.*/
 }
 
-/* #general-rules-modal-textbox {
-    background-color: red;
-} */
+#open-general-rules-modal, #open-card-rules-modal {
+    height: 90%;
+}
+
+#play-button {
+    width: 50%;
+    height: 30%;
+    font-size: 64px;
+    font-family: 'Lavishly Yours', cursive;
+}
 
 
 
