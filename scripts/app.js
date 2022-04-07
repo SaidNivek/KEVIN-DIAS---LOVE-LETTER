@@ -1,8 +1,69 @@
-// Get the object for the play button to reveal the board
+// Global variable declarations
+// Objects for the cards, with values, image, rules, number in deck, and name assigned
+const cards = [
+    guard = {
+        name: "Guard",
+        value: 1,        
+        image: "Guard Image",
+        rules: "Name a non-guard card.  If opponent has that card in hand, they are out of the round.",
+        numInDeck: 5,
+    },
+    priest = {
+        name: "Priest",
+        value: 2,        
+        image: "Priest Image",
+        rules: "Look at opponent's hand",
+        numInDeck: 2,
+    },
+    baron = {
+        name: "Baron",
+        value: 3,        
+        image: "Baron Image",
+        rules: "Compare hands with your opponent. The player with the lower value is out of the round. If tied, nothing happens.",
+        numInDeck: 2,
+    },
+    handmaid = {
+        name: "Handmaid",
+        value: 4,        
+        image: "Handmaid Image",
+        rules: "Until your next turn, ignore all effects from opponent's cards.",
+        numInDeck: 2,
+    },
+    prince = {
+        name: "Prince",
+        value: 5,        
+        image: "Prince Image",
+        rules: "Choose yourself or another player to discard their hand and draw a new card.",
+        numInDeck: 2,
+    },
+    king = {
+        name: "King",
+        value: 6,        
+        image: "King Image",
+        rules: "Trade hands with opponent.",
+        numInDeck: 1,
+    },
+    countess = {
+        name: "Countess",
+        value: 7,        
+        image: "Countess Image",
+        rules: "If you have this card and the King or Prince in your hand, you MUST discard the Countess.",
+        numInDeck: 1,
+    },
+    princess = {
+        name: "Princess",
+        value: 8,        
+        image: "Princess Image",
+        rules: "If you discard the Princess, you are out of the round.",
+        numInDeck: 1,
+    },
+]
+
+// DOM Object grabs
+// Get the objects for the play button to reveal the board
 const $playButton = $('#play-button')
 const $gameBoard = $('.gameboard-div')
 const $startGameDiv = $('#start-game-div')
-
 // Get the objects from the DOM for the general game rules modal
 const $generalRulesOpenButton = $('#open-general-rules-modal');
 const $generalRulesModal = $('#general-rules-modal');
@@ -12,19 +73,12 @@ const $cardRulesOpenButton = $('#open-card-rules-modal')
 const $cardRulesModal = $('#card-rules-modal');
 const $cardRulesCloseButton = $('#card-rules-close')
 
-
-
-
-// pseudo code
-// Click the start game button to enable the game to be played
-
-
-// Set listener to start the game
+// Listeners
+// Set listener to start the game and start the game!
 $playButton.click(function() {
     $gameBoard.css('display', 'flex')
     $startGameDiv.css('display', 'none')
 }) 
-
 // Set listeners to open the general and card rule modals
 $generalRulesOpenButton.click(function() {
     $generalRulesModal.css('display', 'block')
@@ -41,10 +95,6 @@ $cardRulesCloseButton.click(function() {
 })
 
 
-
-
-
-// Objects for the cards, with values, image, rules, number in deck, and name assigned
 // Deck object for all of the cards to be contained within
 // Player objects for their current card, drawn card, current player, and points
 // Populate the deck with the correct cards (values and numbers for each value)
