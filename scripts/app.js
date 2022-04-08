@@ -147,6 +147,8 @@ $playButton.click(function(event) {
     deck = createDeck()
     removedCard = removeTopCard();
     setDrawDeckNum()
+    // Used to discard 3 cards from the top of the deck at beginning of the game
+    // Maybe change this to be a little more sensical in the future (using draw card to discard 3 seems odd)
     drawCard()
     drawOpponentCard1()
     drawPlayerCard1()
@@ -186,18 +188,16 @@ $playerCard1.click(function() {
     }
 })
 
+// Will discard playerCard2, remove its display from the screen, and set it to an empty string
 $playerCard2.click(function() {
     if(players[0].currentPlayer){
         discardCard(playerCard2)
         $playerCard2.css('display', 'none')
         playerCard2 = ''
-        // $playerCard2Value.text(playerCard2.value)
-        // $playerCard2Name.text(playerCard2.name)
-        // $playerCard2Image.text(playerCard2.image)
-        // $playerCard2Rules.text(playerCard2.rules)
     }
 })
 
+// When the deck is clicked on, will draw a card to playerCard2 and display the block with playerCard2 in it
 $drawDeck.click(function() {
     if(deck.length > 0){
         if(players[0].currentPlayer){
@@ -207,11 +207,10 @@ $drawDeck.click(function() {
     }
 })
 
-
 // Functions!
 // This function sets the draw deck remaining value to deck.length and updates it to the DOM
 function setDrawDeckNum() {
-    $drawDeck.text(`Cards Remianing: ${deck.length}`)
+    $drawDeck.text(`Click Here to Draw a Card Cards Remaining: ${deck.length}`)
 }
 
 // This function will set the 1st card of player 1 to the passed in card, drawn from the deck
@@ -261,26 +260,21 @@ function removeTopCard() {
     return deck.pop()
 }
 
-// Thia function will draw a card from the deck and place it in players' hand.
+// This function will draw a card from the deck and place it in players' hand.
 // If not active player (at start of game), will discard 3 cards for set-up purposes
 function drawCard() {
     if(player1.currentPlayer) {
-        if (deck.length > 0) {
+        // Prevent player form drawing cards if player has 2 cards in hand already
+        if (deck.length > 0 && playerCard2 === '') {
             playerCard2 = deck.pop()
             $playerCard2Value.text(playerCard2.value)
             $playerCard2Name.text(playerCard2.name)
             $playerCard2Image.text(playerCard2.image)
             $playerCard2Rules.text(playerCard2.rules)
             setDrawDeckNum()
-        } else {
-            $playerCard2Value.text('')
-            $playerCard2Name.text('')
-            $playerCard2Image.text('some image denoting empty')
-            $playerCard2Rules.text('No cards left in deck')
-            playerCard2 = ''
-        }
+        } 
     } else if (opponent.currentPlayer) {
-
+        // Does nothing for now
     } else {
         // If no active player, discard 3 cards from the deck, only at start of game for set up
         discardCard()
