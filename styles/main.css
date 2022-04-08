@@ -149,7 +149,7 @@ p {
 }
 
 #opponent-mat, #player-mat, .deck, #discarded-cards-row-2, #discarded-cards-row-1,
-.win-tokens, .guard-guess, #opponent-card-2 {
+.win-tokens, .guard-guess, #opponent-card-2{
     display: flex;
     gap: 15px;    
     justify-content: center;
@@ -225,5 +225,13 @@ p {
     font-family: 'Lavishly Yours', cursive;
 }
 
+#player-rules-div, #opponent-rules-div {
+    display:flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 15px;
+}
 
-
+#opponent-rules-div div {
+    transform: rotate(180deg);
+}

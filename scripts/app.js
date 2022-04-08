@@ -78,7 +78,7 @@ const players = [
 let deck = []
 // Empty object for the removed card, which is removed at the start of game and revealed at the end of the game (stretch)
 let removedCard = {}
-// Objects to hold the number of discarded cards, updated throughout the course of a game
+// Variables to hold the number of discarded cards, updated throughout the course of a game
 let discardedGuards = 0;
 let discardedPriests = 0;
 let discardedBarons = 0;
@@ -87,6 +87,11 @@ let discardedPrinces = 0;
 let discardedKing = 0;
 let discardedCountess = 0;
 let discardedPrincess = 0;
+// Objects to hold the cards that are drawn for later purposes
+let playerCard1 = {}
+let playerCard2 = {}
+let opponentCard1 = {}
+let opponentCard2 = {}
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
@@ -132,21 +137,21 @@ const $discardedKing = $('#discarded-king')
 const $discardedCountess = $('#discarded-countess')
 const $discardedPrincess = $('#discarded-princess')
 
+
 // Listeners
 // Set listener to start the game and start the game!
 // Create the deck, remove a card, draw 1 card for the opponent, draw 2 cards for the player
-$playButton.click(function() {
+$playButton.click(function(event) {
     $gameBoard.css('display', 'flex')
     $startGameDiv.css('display', 'none')
     deck = createDeck()
     removedCard = removeTopCard();
-    $drawDeck.text(`Cards Remianing: ${deck.length}`)
+    setDrawDeckNum()
     drawCard()
     drawOpponentCard1()
     drawPlayerCard1()
     drawPlayerCard2()
     player1.currentPlayer = true;
-    console.log(player1.currentPlayer)
 }) 
 
 // Set listeners to open the general and card rule modals
@@ -164,32 +169,65 @@ $cardRulesCloseButton.click(function() {
     $cardRulesModal.css('display', 'none')
 })
 
+// Set listeners for the player cards to select and discard them
+$playerCard1.click(function() {
+    if(players[0].currentPlayer){
+        discardCard(playerCard1)
+        drawPlayerCard1()
+    }
+})
+
+$playerCard2.click(function() {
+    if(players[0].currentPlayer){
+        discardCard(playerCard2)
+        drawPlayerCard2()
+    }
+})
+
 
 // Functions!
+// This function sets the draw deck remaining value to deck.length and updates it to the DOM
+function setDrawDeckNum() {
+    $drawDeck.text(`Cards Remianing: ${deck.length}`)
+}
+
 // This function will set the 1st card of player 1 to the passed in card, drawn from the deck
 // It will set the remaining cards in the deck to deck.length
+// If deck is empty, change the card to show the deck is empty
 function drawPlayerCard1() {
     if (deck.length > 0) {
-        let playerCard = deck.pop()
-        $playerCard1Value.text(playerCard.value)
-        $playerCard1Name.text(playerCard.name)
-        $playerCard1Image.text(playerCard.image)
-        $playerCard1Rules.text(playerCard.rules)
-        $drawDeck.text(`Cards Remianing: ${deck.length}`)
+        playerCard1 = deck.pop()
+        $playerCard1Value.text(playerCard1.value)
+        $playerCard1Name.text(playerCard1.name)
+        $playerCard1Image.text(playerCard1.image)
+        $playerCard1Rules.text(playerCard1.rules)
+        setDrawDeckNum()
+    } else {
+        $playerCard1Value.text('')
+        $playerCard1Name.text('')
+        $playerCard1Image.text('some image denoting empty')
+        $playerCard1Rules.text('No cards left in deck')
+        playerCard1 = ''
     }
 }
 // This function will set the 2nd card of player 1 to the passed in card, drawn from the deck
 // It will set the remaining cards in the deck to deck.length
+// If deck is empty, change the card to show the deck is empty
 function drawPlayerCard2() {
     if (deck.length > 0) {
-        let playerCard = deck.pop()
-        $playerCard2Value.text(playerCard.value)
-        $playerCard2Name.text(playerCard.name)
-        $playerCard2Image.text(playerCard.image)
-        $playerCard2Rules.text(playerCard.rules)
-        $drawDeck.text(`Cards Remianing: ${deck.length}`)
+        playerCard2 = deck.pop()
+        $playerCard2Value.text(playerCard2.value)
+        $playerCard2Name.text(playerCard2.name)
+        $playerCard2Image.text(playerCard2.image)
+        $playerCard2Rules.text(playerCard2.rules)
+        setDrawDeckNum()
+    } else {
+        $playerCard2Value.text('')
+        $playerCard2Name.text('')
+        $playerCard2Image.text('some image denoting empty')
+        $playerCard2Rules.text('No cards left in deck')
+        playerCard2 = ''
     }
-
 }
 
 // This function will set the 1st card of the opponent (player 2) to the passed in card, drawn from the deck
@@ -201,7 +239,7 @@ function drawOpponentCard1() {
         $opponentCard1Name.text(opponentCard.name)
         $opponentCard1Image.text(opponentCard.image)
         $opponentCard1Rules.text(opponentCard.rules)
-        $drawDeck.text(`Cards Remianing: ${deck.length}`)
+        setDrawDeckNum()
     }
 }
 
@@ -225,27 +263,38 @@ function removeTopCard() {
     return deck.pop()
 }
 
+// Thia function will draw a card from the deck and place it in players' hand.
+// If not active player (at start of game), will discard 3 cards for set-up purposes
 function drawCard() {
     if(player1.currentPlayer) {
+
 
     } else if (opponent.currentPlayer) {
 
     } else {
-        // If no active player, discard 3 cards from the deck
+        // If no active player, discard 3 cards from the deck, only at start of game for set up
         discardCard()
         discardCard()
         discardCard()
     }
 }
 
-function discardCard() {
+// This function will discard a card to its appropriate discard pile
+// If there is no current player (at the start of game) will move to dicardPile function without calling on cardTakesEffect function
+function discardCard(aCard) {
     if (!player1.currentPlayer && !opponent.currentPlayer) {
         console.log('no current player test')
         aCard = deck.pop()
         placeCardInDiscardPile(aCard)        
     } else if (player1.currentPlayer) {
-        console.log('player1 current player test')
+        console.log('player1 current player test')        
+        placeCardInDiscardPile(aCard)        
+        cardTakesEffect()
     }
+}
+
+function cardTakesEffect() {
+    console.log('cardTakesEffect testing')
 }
 
 // This function will take the discarded card and add it to that card's specific discard pile, keeping track of total discarded
@@ -277,10 +326,11 @@ function placeCardInDiscardPile(aCard) {
         case "Princess":
             $discardedPrincess.text(`${++discardedPrincess}`)
             break;
+        default:
+            break;
     }
 }
 
-// Draw a card from the deck, adding it to the player's hand and ensure that card has everything viewable on it, alongside the first card
 // Be able to select a card from the two in hand and play/discard it
 // Draw cards until the deck is empty, ensuring that all cards are correctly displayed
 // Increase win token count when the deck is empty(little hearts would be cute as tokens)

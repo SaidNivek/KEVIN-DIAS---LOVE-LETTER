@@ -54,26 +54,31 @@
             </div>
             <div id="opponent-card-2" class="card-in-hand">opponent card 2</div>
             <div id="opponent-win-tokens" class="win-tokens">opponent win tokens</div>
+            <div id="opponent-rules-div">
+                <div>Values correspond to cards, as denoted in the center discard area.</div>
+                <div>If you discard a guard, select a value in the guard guess area to guess opponent's card.</div>                
+                <div>Click a card to discard it and take its effect.</div>
+            </div>
         </div>
 
         <div id="play-area-mat">
             <div id="deck-area-div">
                 <div id="draw-deck" class="deck">cards left</div>
-                <div id="removed-card" class="deck">removed card - who is it?</div>
+                <div id="removed-card" class="deck">Removed Card - who is it?</div>
             </div>
             <div id="discarded-card-area">
                 <div id="discarded-cards-row-1">
-                    <div class="discarded-card">Guards Discarded:<span id="discarded-guard">0</span> / 5</div>
-                    <div class="discarded-card">Priests Discarded: <span id="discarded-priest">0</span> / 2</div>
-                    <div class="discarded-card">Barons Discarded: <span id="discarded-baron">0</span> / 2</div>
-                    <div class="discarded-card">Handmaids Discarded: <span id="discarded-handmaid">0</span> / 2</div>
+                    <div class="discarded-card">1 - Guards Discarded:<span id="discarded-guard">0</span> / 5</div>
+                    <div class="discarded-card">2 - Priests Discarded: <span id="discarded-priest">0</span> / 2</div>
+                    <div class="discarded-card">3 - Barons Discarded: <span id="discarded-baron">0</span> / 2</div>
+                    <div class="discarded-card">4 - Handmaids Discarded: <span id="discarded-handmaid">0</span> / 2</div>
                     
                 </div>
                 <div id="discarded-cards-row-2">
-                    <div class="discarded-card">Princes Discarded: <span id="discarded-prince">0</span> / 2</div>
-                    <div class="discarded-card">King Discarded:<span id="discarded-king">0</span> / 1</div>
-                    <div class="discarded-card">Countess Discarded: <span id="discarded-countess">0</span> / 1</div>
-                    <div class="discarded-card">Princess Discarded: <span id="discarded-princess">0</span> / 1</div>
+                    <div class="discarded-card">5 - Princes Discarded: <span id="discarded-prince">0</span> / 2</div>
+                    <div class="discarded-card">6 - King Discarded:<span id="discarded-king">0</span> / 1</div>
+                    <div class="discarded-card">7 - Countess Discarded: <span id="discarded-countess">0</span> / 1</div>
+                    <div class="discarded-card">8 - Princess Discarded: <span id="discarded-princess">0</span> / 1</div>
                 </div>
                 
 
@@ -82,6 +87,12 @@
         </div>
 
         <div id="player-mat">
+            <div id="player-rules-div">
+                <div class=>Click a card to discard it and take its effect.</div>
+                <div>If you discard a guard, select a value in the guard guess area to guess opponent's card.</div>
+                <div>Values correspond to cards, as denoted in the center discard area.</div>
+            </div>
+
             <div id="player-guard-guess" class="guard-guess">player guard guess</div>
             <div id="player-card-1" class="card-in-hand">
                 <div>
