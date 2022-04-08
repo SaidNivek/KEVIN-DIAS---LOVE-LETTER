@@ -155,8 +155,9 @@ $playButton.click(function() {
     deck = createDeck()
     removedCard = removeTopCard();
     // Used to discard 3 cards from the top of the deck at beginning of the game
-    // Maybe change this to be a little more sensical in the future (using draw card to discard 3 seems odd)
-    drawCard()
+    discardCard()
+    discardCard()
+    discardCard()
     drawOpponentCard1()
     drawPlayerCard1()
     player1.currentPlayer = true;
@@ -174,8 +175,9 @@ $restartButton.click(function() {
     deck = createDeck()
     removedCard = removeTopCard();
     // Used to discard 3 cards from the top of the deck at beginning of the game
-    // Maybe change this to be a little more sensical in the future (using draw card to discard 3 seems odd)
-    drawCard()
+    discardCard()
+    discardCard()
+    discardCard()
     drawOpponentCard1()
     drawPlayerCard1()
     player1.currentPlayer = true;
@@ -308,11 +310,6 @@ function drawCard() {
         } 
     } else if (opponent.currentPlayer) {
         // Does nothing for now
-    } else {
-        // If no active player, discard 3 cards from the deck, only at start of game for set up
-        discardCard()
-        discardCard()
-        discardCard()
     }
 }
 
@@ -330,6 +327,7 @@ function discardCard(aCard) {
 
 function cardTakesEffect() {
     console.log('cardTakesEffect testing')
+    
     if (deck.length === 0) {
         checkForWin()
     }
@@ -373,6 +371,7 @@ function placeCardInDiscardPile(aCard) {
 // Ties mean no one gets a token
 // If a player has 3 total wins, they are the ultimate winner
 // Reveal the name of the removed card
+// Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
 function checkForWin() {
     let winText = ''
     $removedCard.text(`The removed card was: ${removedCard.name}`)
@@ -429,8 +428,7 @@ function resetDiscardPiles() {
     $discardedPrincess.text(`${discardedPrincess}`)
 }
 
-// Reveal the removed card at the end of the game
-// Start to implement game rules 
+// Start to implement card rules 
 //     Guard - Create simple selection of possible cards the opponent has (buttons)
 //             Ensure the buttons work and can correctly identify the dummy card given to opponent
 //             A match means the player gets a win token
