@@ -89,7 +89,7 @@ let discardedCountess = 0;
 let discardedPrincess = 0;
 // Objects to hold the cards that are drawn for later purposes
 let playerCard1 = {}
-let playerCard2 = {}
+let playerCard2 = ''
 let opponentCard1 = {}
 let opponentCard2 = {}
 
@@ -171,15 +171,18 @@ $cardRulesCloseButton.click(function() {
 
 // Set listeners for the player cards to select and discard them
 $playerCard1.click(function() {
-    if(players[0].currentPlayer){
-        discardCard(playerCard1)
-        playerCard1 = playerCard2
-        $playerCard1Value.text(playerCard2.value)
-        $playerCard1Name.text(playerCard2.name)
-        $playerCard1Image.text(playerCard2.image)
-        $playerCard1Rules.text(playerCard2.rules)
-        $playerCard2.css('display', 'none')
-        playerCard2 = {}        
+    // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
+    if(playerCard2 !== '') {
+        if(players[0].currentPlayer){
+            discardCard(playerCard1)
+            playerCard1 = playerCard2
+            $playerCard1Value.text(playerCard2.value)
+            $playerCard1Name.text(playerCard2.name)
+            $playerCard1Image.text(playerCard2.image)
+            $playerCard1Rules.text(playerCard2.rules)
+            $playerCard2.css('display', 'none')
+            playerCard2 = ''        
+        }
     }
 })
 
@@ -187,7 +190,7 @@ $playerCard2.click(function() {
     if(players[0].currentPlayer){
         discardCard(playerCard2)
         $playerCard2.css('display', 'none')
-        playerCard2 = {}
+        playerCard2 = ''
         // $playerCard2Value.text(playerCard2.value)
         // $playerCard2Name.text(playerCard2.name)
         // $playerCard2Image.text(playerCard2.image)
@@ -213,7 +216,7 @@ function setDrawDeckNum() {
 
 // This function will set the 1st card of player 1 to the passed in card, drawn from the deck
 // It will set the remaining cards in the deck to deck.length
-// If deck is empty, change the card to show the deck is empty
+// This will only happen during setup of the game, one time
 function drawPlayerCard1() {
     if (deck.length > 0) {
         playerCard1 = deck.pop()
@@ -222,14 +225,7 @@ function drawPlayerCard1() {
         $playerCard1Image.text(playerCard1.image)
         $playerCard1Rules.text(playerCard1.rules)
         setDrawDeckNum()
-    } else {
-        $playerCard1Value.text('')
-        $playerCard1Name.text('')
-        $playerCard1Image.text('some image denoting empty')
-        $playerCard1Rules.text('No cards left in deck')
-        playerCard1 = ''
-        checkForWin()
-    }
+    } 
 }
 
 // This function will set the 1st card of the opponent (player 2) to the passed in card, drawn from the deck
@@ -281,7 +277,7 @@ function drawCard() {
             $playerCard2Name.text('')
             $playerCard2Image.text('some image denoting empty')
             $playerCard2Rules.text('No cards left in deck')
-            playerCard2 = {}
+            playerCard2 = ''
         }
     } else if (opponent.currentPlayer) {
 
