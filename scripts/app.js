@@ -212,8 +212,8 @@ $playerCard1.click(function() {
     // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
     if(playerCard2 !== '') {
         if(players[0].currentPlayer){
-            playerCard1 = playerCard2
-            discardCard(playerCard1)            
+            discardCard(playerCard1)   
+            playerCard1 = playerCard2                     
             $playerCard1Value.text(playerCard2.value)
             $playerCard1Name.text(playerCard2.name)
             $playerCard1Image.text(playerCard2.image)
@@ -352,12 +352,12 @@ function cardTakesEffect(aCard) {
             // countessEffect()
             break;
         case "Princess":
-            // princessEffect()
+            princessEffect()
             break;
         default:
             break;
     }    
-    if (deck.length === 0) {
+    if (deck.length === 0 && player1.currentPlayer) {
         checkForEmptyDeckWin()
     }
 }
@@ -391,7 +391,25 @@ function countessEffect() {
 }
 
 function princessEffect() {
-    
+    console.log('if princess is discarded, you lose the game')
+    $endOfGameMessage.text('Princess was discarded, opponent wins.')
+    player1.currentPlayer = false;
+    $restartButton.css('display', 'block')
+    giveOpponentTokenOfAffection()
+}
+
+function giveOpponentTokenOfAffection() {
+    opponent.points += 1
+    let winText = ''
+    for (let i = 0; i < opponent.points; i++) {
+        winText += `\u2665 `  
+        $opponentWinTokens.text(winText)
+    }
+    if (opponent.points === WINS_NEEDED) {
+        $endOfGameMessage.text("Opponent has won the heart of the Princess!")
+        opponent.points = 0
+        player1.points = 0
+    }
 }
 
 
