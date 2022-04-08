@@ -95,7 +95,6 @@ let opponentCard2 = {}
 // Constant for total number of rounds needed to win
 const WINS_NEEDED = 3
 
-
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
 const $playButton = $('#play-button')
@@ -373,8 +372,10 @@ function placeCardInDiscardPile(aCard) {
 // Player with higher-valued card at the end receives the win token (<3)
 // Ties mean no one gets a token
 // If a player has 3 total wins, they are the ultimate winner
+// Reveal the name of the removed card
 function checkForWin() {
     let winText = ''
+    $removedCard.text(`The removed card was: ${removedCard.name}`)
     if (playerCard1.value > opponentCard1.value) {
         player1.points += 1
         $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
@@ -448,7 +449,6 @@ function resetDiscardPiles() {
 //     Countess - If your other card is a Prince or a King, the Countess MUST be discarded
 //             Can still discard if the other card is not a Prince or a King
 //     Princess - Lose the game if discarded
-// Reveal the card removed from the game atthe beginning of the round
 
 // Stretch Goals
 //     Confirmation of card to discard each turn
