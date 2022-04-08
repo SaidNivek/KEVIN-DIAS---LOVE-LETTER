@@ -212,8 +212,7 @@ $playerCard1.click(function() {
     // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
     if(playerCard2 !== '') {
         if(players[0].currentPlayer){
-            discardCard(playerCard1)   
-            playerCard1 = playerCard2                     
+            discardCard(playerCard1)                     
             $playerCard1Value.text(playerCard2.value)
             $playerCard1Name.text(playerCard2.name)
             $playerCard1Image.text(playerCard2.image)
@@ -321,7 +320,8 @@ function discardCard(aCard) {
         aCard = deck.pop()
         placeCardInDiscardPile(aCard)        
     } else if (player1.currentPlayer) {       
-        placeCardInDiscardPile(aCard)        
+        placeCardInDiscardPile(aCard) 
+        playerCard1 = playerCard2  
         cardTakesEffect(aCard)
     }
 }
@@ -371,7 +371,7 @@ function priestEffect() {
 }
 
 function baronEffect() {
-
+    console.log(`if baron is discarded, compare your remaining card's value with the opponoent's card value.  Lower value is out`  )
 }
 
 function handmaidEffect() {
@@ -396,6 +396,10 @@ function princessEffect() {
     player1.currentPlayer = false;
     $restartButton.css('display', 'block')
     giveOpponentTokenOfAffection()
+}
+
+function givePlayerTokenOfAffection() {
+
 }
 
 function giveOpponentTokenOfAffection() {
@@ -470,18 +474,7 @@ function checkForEmptyDeckWin() {
         }
         console.log('player 1 wins - test')
     } else if (opponentCard1.value > playerCard1.value) {
-        opponent.points += 1
-        $endOfGameMessage.text('Opponent wins a token of affection from the Princess')
-        $opponentWinTokens.text('')
-        for (let i = 0; i < opponent.points; i++) {
-            winText += `\u2665 `  
-            $opponentWinTokens.text(winText)
-        }
-        if (opponent.points === WINS_NEEDED) {
-            $endOfGameMessage.text("Opponent has won the heart of the Princess!")
-            opponent.points = 0
-            player1.points = 0
-        }
+        giveOpponentTokenOfAffection()
     } else if ((playerCard1.value === opponentCard1.value)) {
         $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
     }
