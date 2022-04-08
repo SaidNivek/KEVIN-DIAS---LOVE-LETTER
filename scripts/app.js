@@ -146,6 +146,15 @@ const $restartButton = $('#restart-button')
 //Get end-of-game-message to display message at end of round and end of game
 const $endOfGameMessage = $('#end-of-game-message')
 
+if (
+    (playerCard1.name === "Countess" && (playerCard2.name === "Prince" || playerCard2.name === "King"))
+    ||
+    (playerCard2.name === "Countess" && (playerCard1.name === "Prince" || playerCard1.name === "King"))
+) {
+
+    console.log(test)
+}
+
 // Listeners
 // Set listener to start the game
 // Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, set current player to player 1
@@ -240,9 +249,50 @@ $drawDeck.click(function() {
             $playerCard2.css('display', 'flex')
         }
     }
+    checkForCountess()
 })
 
 // Functions!
+// Checks to see if one of the cards in hand is the Countess
+// If it is, checks to see if the other is a King or Prince
+// If it is, forces the player to discard the Countess, as per the card rules
+function checkForCountess() {
+    // Unbind playerCard2 if the Countess is in card 1 and king or prince is in card 2
+    if (playerCard1.name === "Countess") {
+        if(playerCard2.name === "King" || playerCard2.name === "King") {
+            $playerCard2.unbind()
+        }
+        // Unbind playerCard1 if the Countess is in card 2 and king or prince is in card 1
+    } else if (playerCard2.name === "Countess") {
+        if(playerCard1.name === "King" || playerCard1.name === "King") {
+            $playerCard1.unbind()
+        }
+    } else {
+        // Rebind the click function if the above two conditions are not met
+        $playerCard2.click(function() {
+            if(players[0].currentPlayer){
+                discardPlayerCard2(playerCard2)
+                $playerCard2.css('display', 'none')
+                playerCard2 = ''
+            }
+        })
+        $playerCard1.click(function() {
+            // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
+            if(playerCard2 !== '') {
+                if(players[0].currentPlayer){
+                    discardCard(playerCard1)                     
+                    $playerCard1Value.text(playerCard2.value)
+                    $playerCard1Name.text(playerCard2.name)
+                    $playerCard1Image.text(playerCard2.image)
+                    $playerCard1Rules.text(playerCard2.rules)
+                    $playerCard2.css('display', 'none')
+                    playerCard2 = ''        
+                }
+            }
+        })
+    }
+}
+
 // This function sets the draw deck remaining value to deck.length and updates it to the DOM
 function setDrawDeckNum() {
     $drawDeck.text(`Click Here to Draw a Card Cards Remaining: ${deck.length}`)
@@ -397,9 +447,9 @@ function kingEffect() {
 }
 
 function countessEffect() {
-
+    console.log('If countess in hand along with a prince or a king, you must discard the countess')
 }
-
+// If the princess is discarded, the opponent wins.
 function princessEffect() {
     console.log('if princess is discarded, you lose the game')
     $endOfGameMessage.text('Princess was discarded, opponent wins.')
@@ -408,15 +458,16 @@ function princessEffect() {
     giveOpponentTokenOfAffection()
 }
 
+// Give the player a token of affection, based off of the card's effects
 function givePlayerTokenOfAffection() {
     player1.points += 1
     let winText = ''
     $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
     $playerWinTokens.text('')        
     for (let i = 0; i < player1.points; i++) {
-        winText += `\u2665 `  
-        $playerWinTokens.text(winText) 
+        winText += `\u2665 `          
     }   
+    $playerWinTokens.text(winText) 
     if (player1.points === WINS_NEEDED) {
         $endOfGameMessage.text("Player 1 has won the heart of the Princess!")
         player1.points = 0
@@ -424,13 +475,15 @@ function givePlayerTokenOfAffection() {
     }
 }
 
+// Give the opponent a token of affection, based off of the card's effects.
 function giveOpponentTokenOfAffection() {
     opponent.points += 1
     let winText = ''
+    $endOfGameMessage.text('Opponent wins a token of affection from the Princess')
     for (let i = 0; i < opponent.points; i++) {
-        winText += `\u2665 `  
-        $opponentWinTokens.text(winText)
+        winText += `\u2665 `          
     }
+    $opponentWinTokens.text(winText)
     if (opponent.points === WINS_NEEDED) {
         $endOfGameMessage.text("Opponent has won the heart of the Princess!")
         opponent.points = 0
@@ -438,6 +491,24 @@ function giveOpponentTokenOfAffection() {
     }
 }
 
+// Increase win token count when the deck is empty(little hearts would be cute as tokens)
+// Player with higher-valued card at the end receives the win token (<3)
+// Ties mean no one gets a token
+// If a player has 3 total wins, they are the ultimate winner
+// Reveal the name of the removed card
+// Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
+function checkForEmptyDeckWin() {
+    $removedCard.text(`The removed card was: ${removedCard.name}`)
+    if (playerCard1.value > opponentCard1.value) {
+        givePlayerTokenOfAffection()
+        console.log('player 1 wins - test')
+    } else if (opponentCard1.value > playerCard1.value) {
+        giveOpponentTokenOfAffection()
+    } else if ((playerCard1.value === opponentCard1.value)) {
+        $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
+    }
+    $restartButton.css('display', 'block')
+}
 
 // This function will take the discarded card and add it to that card's specific discard pile, keeping track of total discarded
 // This is important for the guard guess function, which allows you to guess the opponent's card
@@ -472,25 +543,6 @@ function placeCardInDiscardPile(aCard) {
     }
 }
 
-// Increase win token count when the deck is empty(little hearts would be cute as tokens)
-// Player with higher-valued card at the end receives the win token (<3)
-// Ties mean no one gets a token
-// If a player has 3 total wins, they are the ultimate winner
-// Reveal the name of the removed card
-// Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
-function checkForEmptyDeckWin() {
-    $removedCard.text(`The removed card was: ${removedCard.name}`)
-    if (playerCard1.value > opponentCard1.value) {
-        givePlayerTokenOfAffection()
-        console.log('player 1 wins - test')
-    } else if (opponentCard1.value > playerCard1.value) {
-        giveOpponentTokenOfAffection()
-    } else if ((playerCard1.value === opponentCard1.value)) {
-        $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
-    }
-    $restartButton.css('display', 'block')
-}
-
 // Reset the discard piles and their text when restart button is clicked
 function resetDiscardPiles() {
     discardedGuards = 0;
@@ -510,6 +562,7 @@ function resetDiscardPiles() {
     $discardedCountess.text(`${discardedCountess}`)
     $discardedPrincess.text(`${discardedPrincess}`)
 }
+
 
 // Start to implement card rules 
 //     Guard - Create simple selection of possible cards the opponent has (buttons)
