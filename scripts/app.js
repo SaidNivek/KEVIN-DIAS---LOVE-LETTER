@@ -264,7 +264,7 @@ function checkForCountess() {
         }
         // Unbind playerCard1 if the Countess is in card 2 and king or prince is in card 1
     } else if (playerCard2.name === "Countess") {
-        if(playerCard1.name === "King" || playerCard1.name === "King") {
+        if(playerCard1.name === "King" || playerCard1.name === "Prince") {
             $playerCard1.unbind()
         }
     } else {
@@ -451,11 +451,11 @@ function countessEffect() {
 }
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
-    console.log('if princess is discarded, you lose the game')
-    $endOfGameMessage.text('Princess was discarded, opponent wins.')
-    player1.currentPlayer = false;
-    $restartButton.css('display', 'block')
-    giveOpponentTokenOfAffection()
+    // console.log('if princess is discarded, you lose the game')
+    // $endOfGameMessage.text('Princess was discarded, opponent wins.')
+    // player1.currentPlayer = false;
+    // $restartButton.css('display', 'block')
+    // giveOpponentTokenOfAffection()
 }
 
 // Give the player a token of affection, based off of the card's effects
