@@ -150,8 +150,8 @@ $playButton.click(function(event) {
     drawCard()
     drawOpponentCard1()
     drawPlayerCard1()
-    drawPlayerCard2()
     player1.currentPlayer = true;
+    $playerCard2.css('display', 'none')
 }) 
 
 // Set listeners to open the general and card rule modals
@@ -173,14 +173,34 @@ $cardRulesCloseButton.click(function() {
 $playerCard1.click(function() {
     if(players[0].currentPlayer){
         discardCard(playerCard1)
-        drawPlayerCard1()
+        playerCard1 = playerCard2
+        $playerCard1Value.text(playerCard2.value)
+        $playerCard1Name.text(playerCard2.name)
+        $playerCard1Image.text(playerCard2.image)
+        $playerCard1Rules.text(playerCard2.rules)
+        $playerCard2.css('display', 'none')
+        playerCard2 = {}        
     }
 })
 
 $playerCard2.click(function() {
     if(players[0].currentPlayer){
         discardCard(playerCard2)
-        drawPlayerCard2()
+        $playerCard2.css('display', 'none')
+        playerCard2 = {}
+        // $playerCard2Value.text(playerCard2.value)
+        // $playerCard2Name.text(playerCard2.name)
+        // $playerCard2Image.text(playerCard2.image)
+        // $playerCard2Rules.text(playerCard2.rules)
+    }
+})
+
+$drawDeck.click(function() {
+    if(deck.length > 0){
+        if(players[0].currentPlayer){
+            drawCard()
+            $playerCard2.css('display', 'flex')
+        }
     }
 })
 
@@ -208,25 +228,7 @@ function drawPlayerCard1() {
         $playerCard1Image.text('some image denoting empty')
         $playerCard1Rules.text('No cards left in deck')
         playerCard1 = ''
-    }
-}
-// This function will set the 2nd card of player 1 to the passed in card, drawn from the deck
-// It will set the remaining cards in the deck to deck.length
-// If deck is empty, change the card to show the deck is empty
-function drawPlayerCard2() {
-    if (deck.length > 0) {
-        playerCard2 = deck.pop()
-        $playerCard2Value.text(playerCard2.value)
-        $playerCard2Name.text(playerCard2.name)
-        $playerCard2Image.text(playerCard2.image)
-        $playerCard2Rules.text(playerCard2.rules)
-        setDrawDeckNum()
-    } else {
-        $playerCard2Value.text('')
-        $playerCard2Name.text('')
-        $playerCard2Image.text('some image denoting empty')
-        $playerCard2Rules.text('No cards left in deck')
-        playerCard2 = ''
+        checkForWin()
     }
 }
 
@@ -267,8 +269,20 @@ function removeTopCard() {
 // If not active player (at start of game), will discard 3 cards for set-up purposes
 function drawCard() {
     if(player1.currentPlayer) {
-
-
+        if (deck.length > 0) {
+            playerCard2 = deck.pop()
+            $playerCard2Value.text(playerCard2.value)
+            $playerCard2Name.text(playerCard2.name)
+            $playerCard2Image.text(playerCard2.image)
+            $playerCard2Rules.text(playerCard2.rules)
+            setDrawDeckNum()
+        } else {
+            $playerCard2Value.text('')
+            $playerCard2Name.text('')
+            $playerCard2Image.text('some image denoting empty')
+            $playerCard2Rules.text('No cards left in deck')
+            playerCard2 = {}
+        }
     } else if (opponent.currentPlayer) {
 
     } else {
@@ -283,11 +297,9 @@ function drawCard() {
 // If there is no current player (at the start of game) will move to dicardPile function without calling on cardTakesEffect function
 function discardCard(aCard) {
     if (!player1.currentPlayer && !opponent.currentPlayer) {
-        console.log('no current player test')
         aCard = deck.pop()
         placeCardInDiscardPile(aCard)        
-    } else if (player1.currentPlayer) {
-        console.log('player1 current player test')        
+    } else if (player1.currentPlayer) {       
         placeCardInDiscardPile(aCard)        
         cardTakesEffect()
     }
@@ -300,7 +312,6 @@ function cardTakesEffect() {
 // This function will take the discarded card and add it to that card's specific discard pile, keeping track of total discarded
 // This is important for the guard guess function, which allows you to guess the opponent's card
 function placeCardInDiscardPile(aCard) {
-    console.log(aCard.name)
     switch(aCard.name) {
         case "Guard":
             $discardedGuards.text(`${++discardedGuards}`)
@@ -329,6 +340,10 @@ function placeCardInDiscardPile(aCard) {
         default:
             break;
     }
+}
+
+function checkForWin() {
+    console.log("Test check for win function")
 }
 
 // Be able to select a card from the two in hand and play/discard it
