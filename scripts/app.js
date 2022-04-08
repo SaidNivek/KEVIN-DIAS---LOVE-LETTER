@@ -92,6 +92,9 @@ let playerCard1 = {}
 let playerCard2 = ''
 let opponentCard1 = {}
 let opponentCard2 = {}
+// Constant for total number of rounds needed to win
+const WINS_NEEDED = 3
+
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
@@ -139,17 +142,19 @@ const $discardedPrincess = $('#discarded-princess')
 // Get DOM objects for player win tokens and opponent win tokens
 const $playerWinTokens = $('#player-win-tokens')
 const $opponentWinTokens = $('#opponent-win-tokens')
-
+// Get restart-button to reset the game
+const $restartButton = $('#restart-button')
+//Get end-of-game-message to display message at end of round and end of game
+const $endOfGameMessage = $('#end-of-game-message')
 
 // Listeners
-// Set listener to start the game and start the game!
-// Create the deck, remove a card, draw 1 card for the opponent, draw 2 cards for the player
-$playButton.click(function(event) {
+// Set listener to start the game
+// Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, set current player to player 1
+$playButton.click(function() {
     $gameBoard.css('display', 'flex')
     $startGameDiv.css('display', 'none')
     deck = createDeck()
     removedCard = removeTopCard();
-    setDrawDeckNum()
     // Used to discard 3 cards from the top of the deck at beginning of the game
     // Maybe change this to be a little more sensical in the future (using draw card to discard 3 seems odd)
     drawCard()
@@ -157,7 +162,33 @@ $playButton.click(function(event) {
     drawPlayerCard1()
     player1.currentPlayer = true;
     $playerCard2.css('display', 'none')
+    setDrawDeckNum()
 }) 
+
+// Set listener to start the game and start the game!
+// Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, , set current player to player 1
+// If player and opponent points = 0, remove tokens of affection, as a new game has started
+$restartButton.click(function() {
+    resetDiscardPiles()
+    player1.currentPlayer = false;
+    $restartButton.css('display', 'none')
+    deck = createDeck()
+    removedCard = removeTopCard();
+    // Used to discard 3 cards from the top of the deck at beginning of the game
+    // Maybe change this to be a little more sensical in the future (using draw card to discard 3 seems odd)
+    drawCard()
+    drawOpponentCard1()
+    drawPlayerCard1()
+    player1.currentPlayer = true;
+    $playerCard2.css('display', 'none')
+    playerCard2 = ''
+    setDrawDeckNum()
+    $endOfGameMessage.text('')
+    if(opponent.points === 0 && player1.points === 0) {
+        $playerWinTokens.text('')
+        $opponentWinTokens.text('')
+    }
+})
 
 // Set listeners to open the general and card rule modals
 $generalRulesOpenButton.click(function() {
@@ -179,8 +210,8 @@ $playerCard1.click(function() {
     // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
     if(playerCard2 !== '') {
         if(players[0].currentPlayer){
-            discardCard(playerCard1)
             playerCard1 = playerCard2
+            discardCard(playerCard1)            
             $playerCard1Value.text(playerCard2.value)
             $playerCard1Name.text(playerCard2.name)
             $playerCard1Image.text(playerCard2.image)
@@ -338,37 +369,66 @@ function placeCardInDiscardPile(aCard) {
     }
 }
 
+// Increase win token count when the deck is empty(little hearts would be cute as tokens)
+// Player with higher-valued card at the end receives the win token (<3)
+// Ties mean no one gets a token
+// If a player has 3 total wins, they are the ultimate winner
 function checkForWin() {
+    let winText = ''
     if (playerCard1.value > opponentCard1.value) {
         player1.points += 1
-        $playerWinTokens.text('')
+        $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
+        $playerWinTokens.text('')        
         for (let i = 0; i < player1.points; i++) {
-            $playerWinTokens.text(`\u2665`)
-        }
-        if (player1.points === 3) {
-            console.log("Player 1 has won the heart of the Princess!")
+            winText += `\u2665 `  
+            $playerWinTokens.text(winText) 
+        }   
+        if (player1.points === WINS_NEEDED) {
+            $endOfGameMessage.text("Player 1 has won the heart of the Princess!")
+            player1.points = 0
+            opponent.points = 0
         }
         console.log('player 1 wins - test')
     } else if (opponentCard1.value > playerCard1.value) {
         opponent.points += 1
+        $endOfGameMessage.text('Opponent wins a token of affection from the Princess')
         $opponentWinTokens.text('')
         for (let i = 0; i < opponent.points; i++) {
-            $opponentWinTokens.text(`\u2665`)
+            winText += `\u2665 `  
+            $opponentWinTokens.text(winText)
         }
-        if (opponent.points === 3) {
-            console.log("Opponent has won the heart of the Princess!")
+        if (opponent.points === WINS_NEEDED) {
+            $endOfGameMessage.text("Opponent has won the heart of the Princess!")
+            opponent.points = 0
+            player1.points = 0
         }
     } else if ((playerCard1.value === opponentCard1.value)) {
-        console.log('tie test')
-
+        $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
     }
-
+    $restartButton.css('display', 'block')
 }
 
-// Increase win token count when the deck is empty(little hearts would be cute as tokens)
-//     Player with higher-valued card at the end receives the win token
-//     Set dummy card to different values to test this condition
-//     Ties mean no one gets a token
+// Reset the discard piles and their text when restart button is clicked
+function resetDiscardPiles() {
+    discardedGuards = 0;
+    discardedPriests = 0;
+    discardedBarons = 0;
+    discardedHandmaids = 0;
+    discardedPrinces = 0;
+    discardedKing = 0;
+    discardedCountess = 0;
+    discardedPrincess = 0;
+    $discardedGuards.text(`${discardedGuards}`)
+    $discardedPriests.text(`${discardedPriests}`)
+    $discardedBarons.text(`${discardedBarons}`)
+    $discardedHandmaids.text(`${discardedHandmaids}`)
+    $discardedPrinces.text(`${discardedPrinces}`)
+    $discardedKing.text(`${discardedKing}`)
+    $discardedCountess.text(`${discardedCountess}`)
+    $discardedPrincess.text(`${discardedPrincess}`)
+}
+
+// Reveal the removed card at the end of the game
 // Start to implement game rules 
 //     Guard - Create simple selection of possible cards the opponent has (buttons)
 //             Ensure the buttons work and can correctly identify the dummy card given to opponent

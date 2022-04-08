@@ -235,3 +235,7 @@ p {
 #opponent-rules-div div {
     transform: rotate(180deg);
 }
+
+#restart-button, #new-match-button {
+    display: none;
+}
