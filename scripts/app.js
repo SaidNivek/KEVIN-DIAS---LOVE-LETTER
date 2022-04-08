@@ -174,6 +174,7 @@ $restartButton.click(function() {
     $restartButton.css('display', 'none')
     deck = createDeck()
     removedCard = removeTopCard();
+    $removedCard.text('Removed Card - who is it?')
     // Used to discard 3 cards from the top of the deck at beginning of the game
     discardCard()
     discardCard()
@@ -321,17 +322,78 @@ function discardCard(aCard) {
         placeCardInDiscardPile(aCard)        
     } else if (player1.currentPlayer) {       
         placeCardInDiscardPile(aCard)        
-        cardTakesEffect()
+        cardTakesEffect(aCard)
     }
 }
 
-function cardTakesEffect() {
+// This function will call the appropriate function for the card that was just discarded by the player
+function cardTakesEffect(aCard) {
     console.log('cardTakesEffect testing')
-    
+    switch(aCard.name) {
+        case "Guard":
+            // guardEffect()
+            break;
+        case "Priest":
+            // priestEffect()
+            break;
+            case "Baron":
+            // baronEffect()
+            break;
+        case "Handmaid":
+            // handmaidEffect()
+            break;
+        case "Prince":
+            // princeEffect()
+            break;
+        case "King":
+            // kingEffect()
+            break;
+        case "Countess":
+            // countessEffect()
+            break;
+        case "Princess":
+            // princessEffect()
+            break;
+        default:
+            break;
+    }    
     if (deck.length === 0) {
-        checkForWin()
+        checkForEmptyDeckWin()
     }
 }
+
+function guardEffect() {
+    
+}
+
+function priestEffect() {
+
+}
+
+function baronEffect() {
+
+}
+
+function handmaidEffect() {
+
+}
+
+function princeEffect() {
+
+}
+
+function kingEffect() {
+
+}
+
+function countessEffect() {
+
+}
+
+function princessEffect() {
+    
+}
+
 
 // This function will take the discarded card and add it to that card's specific discard pile, keeping track of total discarded
 // This is important for the guard guess function, which allows you to guess the opponent's card
@@ -372,7 +434,7 @@ function placeCardInDiscardPile(aCard) {
 // If a player has 3 total wins, they are the ultimate winner
 // Reveal the name of the removed card
 // Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
-function checkForWin() {
+function checkForEmptyDeckWin() {
     let winText = ''
     $removedCard.text(`The removed card was: ${removedCard.name}`)
     if (playerCard1.value > opponentCard1.value) {
@@ -452,6 +514,6 @@ function resetDiscardPiles() {
 //     Confirmation of card to discard each turn
 //     Confirmation of Guard Guess choice
 //     Check to see if all of one card has been played already, removing the option of that card to be guessed with a Guard Guess
+//      Create a pop-up modal for the guard guess that only appears when the guard is discarded, asking for your selection
 //     Play against yourself with two active hands
 //     Play against an AI who makes basic decisions (as simple as possible, with very few AI logic rules)
-
