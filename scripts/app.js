@@ -226,7 +226,7 @@ $playerCard1.click(function() {
 // Will discard playerCard2, remove its display from the screen, and set it to an empty string
 $playerCard2.click(function() {
     if(players[0].currentPlayer){
-        discardCard(playerCard2)
+        discardPlayerCard2(playerCard2)
         $playerCard2.css('display', 'none')
         playerCard2 = ''
     }
@@ -246,6 +246,29 @@ $drawDeck.click(function() {
 // This function sets the draw deck remaining value to deck.length and updates it to the DOM
 function setDrawDeckNum() {
     $drawDeck.text(`Click Here to Draw a Card Cards Remaining: ${deck.length}`)
+}
+
+// This function will discard a card to its appropriate discard pile or PlayerCard1 to its appropriate discard pile
+// If there is no current player (at the start of game) will move to dicardPile function without calling on cardTakesEffect function
+function discardCard(aCard) {
+    if (!player1.currentPlayer && !opponent.currentPlayer) {
+        aCard = deck.pop()
+        placeCardInDiscardPile(aCard)        
+    } else if (player1.currentPlayer) {       
+        placeCardInDiscardPile(aCard) 
+        playerCard1 = playerCard2  
+        console.log(playerCard1)
+        cardTakesEffect(aCard)
+    }
+}
+
+// This function will discard playercard2 to its appropriate discard pile and NOT change the value of playerCard1
+function discardPlayerCard2(aCard) {
+    if (player1.currentPlayer) {       
+        placeCardInDiscardPile(aCard) 
+        console.log(playerCard1)
+        cardTakesEffect(aCard)
+    }
 }
 
 // This function will set the 1st card of player 1 to the passed in card, drawn from the deck
@@ -310,19 +333,6 @@ function drawCard() {
         } 
     } else if (opponent.currentPlayer) {
         // Does nothing for now
-    }
-}
-
-// This function will discard a card to its appropriate discard pile
-// If there is no current player (at the start of game) will move to dicardPile function without calling on cardTakesEffect function
-function discardCard(aCard) {
-    if (!player1.currentPlayer && !opponent.currentPlayer) {
-        aCard = deck.pop()
-        placeCardInDiscardPile(aCard)        
-    } else if (player1.currentPlayer) {       
-        placeCardInDiscardPile(aCard) 
-        playerCard1 = playerCard2  
-        cardTakesEffect(aCard)
     }
 }
 
@@ -399,7 +409,19 @@ function princessEffect() {
 }
 
 function givePlayerTokenOfAffection() {
-
+    player1.points += 1
+    let winText = ''
+    $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
+    $playerWinTokens.text('')        
+    for (let i = 0; i < player1.points; i++) {
+        winText += `\u2665 `  
+        $playerWinTokens.text(winText) 
+    }   
+    if (player1.points === WINS_NEEDED) {
+        $endOfGameMessage.text("Player 1 has won the heart of the Princess!")
+        player1.points = 0
+        opponent.points = 0
+    }
 }
 
 function giveOpponentTokenOfAffection() {
@@ -457,21 +479,9 @@ function placeCardInDiscardPile(aCard) {
 // Reveal the name of the removed card
 // Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
 function checkForEmptyDeckWin() {
-    let winText = ''
     $removedCard.text(`The removed card was: ${removedCard.name}`)
     if (playerCard1.value > opponentCard1.value) {
-        player1.points += 1
-        $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
-        $playerWinTokens.text('')        
-        for (let i = 0; i < player1.points; i++) {
-            winText += `\u2665 `  
-            $playerWinTokens.text(winText) 
-        }   
-        if (player1.points === WINS_NEEDED) {
-            $endOfGameMessage.text("Player 1 has won the heart of the Princess!")
-            player1.points = 0
-            opponent.points = 0
-        }
+        givePlayerTokenOfAffection()
         console.log('player 1 wins - test')
     } else if (opponentCard1.value > playerCard1.value) {
         giveOpponentTokenOfAffection()
