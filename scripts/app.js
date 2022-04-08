@@ -136,6 +136,9 @@ const $discardedPrinces = $('#discarded-prince')
 const $discardedKing = $('#discarded-king')
 const $discardedCountess = $('#discarded-countess')
 const $discardedPrincess = $('#discarded-princess')
+// Get DOM objects for player win tokens and opponent win tokens
+const $playerWinTokens = $('#player-win-tokens')
+const $opponentWinTokens = $('#opponent-win-tokens')
 
 
 // Listeners
@@ -231,11 +234,11 @@ function drawPlayerCard1() {
 // It will set the remaining cards in the deck to deck.length
 function drawOpponentCard1() {
     if (deck.length > 0) {
-        let opponentCard = deck.pop()
-        $opponentCard1Value.text(opponentCard.value)
-        $opponentCard1Name.text(opponentCard.name)
-        $opponentCard1Image.text(opponentCard.image)
-        $opponentCard1Rules.text(opponentCard.rules)
+        opponentCard1 = deck.pop()
+        $opponentCard1Value.text(opponentCard1.value)
+        $opponentCard1Name.text(opponentCard1.name)
+        $opponentCard1Image.text(opponentCard1.image)
+        $opponentCard1Rules.text(opponentCard1.rules)
         setDrawDeckNum()
     }
 }
@@ -297,6 +300,9 @@ function discardCard(aCard) {
 
 function cardTakesEffect() {
     console.log('cardTakesEffect testing')
+    if (deck.length === 0) {
+        checkForWin()
+    }
 }
 
 // This function will take the discarded card and add it to that card's specific discard pile, keeping track of total discarded
@@ -333,16 +339,36 @@ function placeCardInDiscardPile(aCard) {
 }
 
 function checkForWin() {
-    console.log("Test check for win function")
+    if (playerCard1.value > opponentCard1.value) {
+        player1.points += 1
+        $playerWinTokens.text('')
+        for (let i = 0; i < player1.points; i++) {
+            $playerWinTokens.text(`\u2665`)
+        }
+        if (player1.points === 3) {
+            console.log("Player 1 has won the heart of the Princess!")
+        }
+        console.log('player 1 wins - test')
+    } else if (opponentCard1.value > playerCard1.value) {
+        opponent.points += 1
+        $opponentWinTokens.text('')
+        for (let i = 0; i < opponent.points; i++) {
+            $opponentWinTokens.text(`\u2665`)
+        }
+        if (opponent.points === 3) {
+            console.log("Opponent has won the heart of the Princess!")
+        }
+    } else if ((playerCard1.value === opponentCard1.value)) {
+        console.log('tie test')
+
+    }
+
 }
 
-// Be able to select a card from the two in hand and play/discard it
-// Draw cards until the deck is empty, ensuring that all cards are correctly displayed
 // Increase win token count when the deck is empty(little hearts would be cute as tokens)
 //     Player with higher-valued card at the end receives the win token
 //     Set dummy card to different values to test this condition
 //     Ties mean no one gets a token
-// After a card is discarded, put them in the center with a number to signify how many have been played so far this round
 // Start to implement game rules 
 //     Guard - Create simple selection of possible cards the opponent has (buttons)
 //             Ensure the buttons work and can correctly identify the dummy card given to opponent
