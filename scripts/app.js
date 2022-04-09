@@ -407,7 +407,7 @@ function cardTakesEffect(aCard) {
             // priestEffect()
             break;
             case "Baron":
-            baronEffect()
+            // baronEffect()
             break;
         case "Handmaid":
             // handmaidEffect()
@@ -423,7 +423,7 @@ function cardTakesEffect(aCard) {
             // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            // princessEffect()
+            princessEffect()
             break;
         default:
             break;
@@ -475,15 +475,16 @@ function kingEffect() {
 
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
-    // console.log('if princess is discarded, you lose the game')
-    // $endOfGameMessage.text('Princess was discarded, opponent wins.')
-    // player1.currentPlayer = false;
-    // $restartButton.css('display', 'block')
-    // giveOpponentTokenOfAffection()
+    console.log('if princess is discarded, you lose the game')
+    $endOfGameMessage.text('Princess was discarded, opponent wins.')
+    player1.currentPlayer = false;
+    $restartButton.css('display', 'block')
+    giveOpponentTokenOfAffection()
 }
 
 // Give the player a token of affection, based off of the card's effects
 function givePlayerTokenOfAffection() {
+    $removedCard.text(`The removed card was: ${removedCard.name}`)
     player1.points += 1
     let winText = ''
     $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
@@ -501,6 +502,7 @@ function givePlayerTokenOfAffection() {
 
 // Give the opponent a token of affection, based off of the card's effects.
 function giveOpponentTokenOfAffection() {
+    $removedCard.text(`The removed card was: ${removedCard.name}`)
     opponent.points += 1
     let winText = ''
     $endOfGameMessage.text('Opponent wins a token of affection from the Princess')
