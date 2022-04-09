@@ -94,6 +94,8 @@ let opponentCard1 = {}
 let opponentCard2 = {}
 // Constant for total number of rounds needed to win
 const WINS_NEEDED = 3
+// Needed to check for rebinds on the $drawDeck (fix this hack-y way later)
+let lastCardPlayed = {}
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
@@ -146,15 +148,6 @@ const $restartButton = $('#restart-button')
 //Get end-of-game-message to display message at end of round and end of game
 const $endOfGameMessage = $('#end-of-game-message')
 
-if (
-    (playerCard1.name === "Countess" && (playerCard2.name === "Prince" || playerCard2.name === "King"))
-    ||
-    (playerCard2.name === "Countess" && (playerCard1.name === "Prince" || playerCard1.name === "King"))
-) {
-
-    console.log(test)
-}
-
 // Listeners
 // Set listener to start the game
 // Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, set current player to player 1
@@ -178,6 +171,9 @@ $playButton.click(function() {
 // Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, , set current player to player 1
 // If player and opponent points = 0, remove tokens of affection, as a new game has started
 $restartButton.click(function() {
+    if(lastCardPlayed === "Baron") {
+        setDrawDeckListener()
+    }
     resetDiscardPiles()
     player1.currentPlayer = false;
     $restartButton.css('display', 'none')
@@ -252,6 +248,18 @@ $drawDeck.click(function() {
     checkForCountess()
 })
 
+function setDrawDeckListener() {
+    $drawDeck.click(function() {
+        if(deck.length > 0){
+            if(players[0].currentPlayer){
+                drawCard()
+                $playerCard2.css('display', 'flex')
+            }
+        }
+        checkForCountess()
+    })
+}
+
 // Functions!
 // Checks to see if one of the cards in hand is the Countess
 // If it is, checks to see if the other is a King or Prince
@@ -259,7 +267,7 @@ $drawDeck.click(function() {
 function checkForCountess() {
     // Unbind playerCard2 if the Countess is in card 1 and king or prince is in card 2
     if (playerCard1.name === "Countess") {
-        if(playerCard2.name === "King" || playerCard2.name === "King") {
+        if(playerCard2.name === "King" || playerCard2.name === "Prince") {
             $playerCard2.unbind()
         }
         // Unbind playerCard1 if the Countess is in card 2 and king or prince is in card 1
@@ -269,6 +277,8 @@ function checkForCountess() {
         }
     } else {
         // Rebind the click function if the above two conditions are not met
+        // Hackey answer, but unbind every time this runs, then rebind it to make it work for now
+        $playerCard2.unbind()
         $playerCard2.click(function() {
             if(players[0].currentPlayer){
                 discardPlayerCard2(playerCard2)
@@ -397,7 +407,7 @@ function cardTakesEffect(aCard) {
             // priestEffect()
             break;
             case "Baron":
-            // baronEffect()
+            baronEffect()
             break;
         case "Handmaid":
             // handmaidEffect()
@@ -409,10 +419,11 @@ function cardTakesEffect(aCard) {
             // kingEffect()
             break;
         case "Countess":
-            // countessEffect()
+            // checkForCountess function created to deal with Countess pre-discard rule
+            // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            princessEffect()
+            // princessEffect()
             break;
         default:
             break;
@@ -430,8 +441,23 @@ function priestEffect() {
 
 }
 
+// Compare your remaining card with the opponent's card in hand.  THe lower value loses and that player is removed from the game.
 function baronEffect() {
-    console.log(`if baron is discarded, compare your remaining card's value with the opponoent's card value.  Lower value is out`  )
+    if (playerCard1.value > opponentCard1.value) {
+        console.log('player 1 baron wins - test')
+        $endOfGameMessage.text(`Player 1 had a higher card value and wins this round thanks to the Baron's influence!`)
+        $drawDeck.unbind()
+        givePlayerTokenOfAffection()
+        $restartButton.css('display', 'block')
+        lastCardPlayed = "Baron"
+    } else if (opponentCard1.value > playerCard1.value) {
+        console.log('player 1 baron wins - test')
+        $endOfGameMessage.text(`Your opponent had a higher card value and wins this round thanks to the Baron's influence!`)
+        $drawDeck.unbind()
+        giveOpponentTokenOfAffection()
+        $restartButton.css('display', 'block')
+        lastCardPlayed = "Baron"
+    }     
 }
 
 function handmaidEffect() {
@@ -442,13 +468,11 @@ function princeEffect() {
 
 }
 
+// This trades your card with the opponents' card
 function kingEffect() {
 
 }
 
-function countessEffect() {
-    console.log('If countess in hand along with a prince or a king, you must discard the countess')
-}
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
     // console.log('if princess is discarded, you lose the game')
@@ -580,9 +604,6 @@ function resetDiscardPiles() {
 //             If opponent, give them a new dummy card (for now)
 //             If Princess is discarded, the discarding player loses and opponent gets a win token
 //     King - Trade cards with the opponent (player would acquire the dummy card, opponent would receive a real card for this test)
-//     Countess - If your other card is a Prince or a King, the Countess MUST be discarded
-//             Can still discard if the other card is not a Prince or a King
-//     Princess - Lose the game if discarded
 
 // Stretch Goals
 //     Confirmation of card to discard each turn
