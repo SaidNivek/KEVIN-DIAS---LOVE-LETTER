@@ -416,14 +416,14 @@ function cardTakesEffect(aCard) {
             // princeEffect()
             break;
         case "King":
-            // kingEffect()
+            kingEffect()
             break;
         case "Countess":
             // checkForCountess function created to deal with Countess pre-discard rule
             // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            princessEffect()
+            // princessEffect()
             break;
         default:
             break;
@@ -470,7 +470,15 @@ function princeEffect() {
 
 // This trades your card with the opponents' card
 function kingEffect() {
-
+    let tempCard = opponentCard1
+    $opponentCard1Value.text(playerCard1.value)
+    $opponentCard1Name.text(playerCard1.name)
+    $opponentCard1Image.text(playerCard1.image)
+    $opponentCard1Rules.text(playerCard1.rules)
+    $playerCard1Value.text(tempCard.value)
+    $playerCard1Name.text(tempCard.name)
+    $playerCard1Image.text(tempCard.image)
+    $playerCard1Rules.text(tempCard.rules)
 }
 
 // If the princess is discarded, the opponent wins.
