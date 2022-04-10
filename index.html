@@ -26,7 +26,7 @@
     
     <button id="open-general-rules-modal">General Game Rules</button>
     <div id="general-rules-modal">
-        <div id="general-rules-modal-textbox">
+        <div class="modal-textbox-large">
             <a id="general-rules-close" href="#">Close</a>
             <h2>General Rules of Love Letter</h2>
             <h3>Setup</h3>
@@ -43,22 +43,11 @@
 
     <div class="gameboard-div">
         <div id="opponent-mat">
-            <div id="opponent-guard-guess" class="guard-guess">opponent guard guess</div>
             <div id="opponent-card-1" class="card-in-hand">
-                <div>
-                    <div id="opponent-card-1-value">Value</div>
-                    <div id="opponent-card-1-name">Name of Card</div>
-                </div>
-                <div id="opponent-card-1-image">Image</div>
-                <div id="opponent-card-1-rules">Rule Text</div>
+                <img id="opponent-card-1-image" />
             </div>
             <div id="opponent-card-2" class="card-in-hand">opponent card 2</div>
             <div id="opponent-win-tokens" class="win-tokens">opponent win tokens</div>
-            <div id="opponent-rules-div">
-                <div>Values correspond to cards, as denoted in the center discard area.</div>
-                <div>If you discard a guard, select a value in the guard guess area to guess opponent's card.</div>                
-                <div>Click a card to discard it and take its effect.</div>
-            </div>
         </div>
 
         <div id="play-area-mat">
@@ -73,7 +62,8 @@
                     <div class="discarded-card">3 - Barons Discarded: <span id="discarded-baron">0</span> / 2</div>
                     <div class="discarded-card">4 - Handmaids Discarded: <span id="discarded-handmaid">0</span> / 2</div>                    
                 </div>
-                <div id="end-of-game-message"></div>
+                <div id="supplemental-end-of-game-message"></div>
+                <div id="end-of-game-message"></div>               
                 <div>
                     <button id="restart-button">Start a New Round</button>
                     <button id="new-match-button">Start a New Match</button>
@@ -90,28 +80,12 @@
         </div>
 
         <div id="player-mat">
-            <div id="player-rules-div">
-                <div class=>Click a card to discard it and take its effect.</div>
-                <div>If you discard a guard, select a value in the guard guess area to guess opponent's card.</div>
-                <div>Values correspond to cards, as denoted in the center discard area.</div>
-            </div>
-
-            <div id="player-guard-guess" class="guard-guess">player guard guess</div>
             <div id="player-card-1" class="card-in-hand">
-                <div>
-                    <div id="player-card-1-value">Value</div>
-                    <div id="player-card-1-name">Name of Card</div>
-                </div>
-                <div id="player-card-1-image">Image</div>
-                <div id="player-card-1-rules">Rule Text</div>
+                <img id="player-card-1-image" alt="Player card 1">
             </div>
+            
             <div id="player-card-2" class="card-in-hand">
-                <div>
-                    <div id="player-card-2-value">Value</div>
-                    <div id="player-card-2-name">Name of Card</div>
-                </div>
-                <div id="player-card-2-image">Image</div>
-                <div id="player-card-2-rules">Rule Text</div>
+                <img id="player-card-2-image" alt="Player card 2">
             </div>
             <div id="player-win-tokens" class="win-tokens">player win tokens</div>
         </div>
@@ -120,7 +94,7 @@
 
     <button id="open-card-rules-modal">Card-Specific Rules</button>
     <div id="card-rules-modal">
-        <div id="card-rules-modal-textbox">
+        <div class="modal-textbox-large">
             <a id="card-rules-close" href="#">Close</a>
             <h2>Card Rules of Love Letter</h2>
             <h3>1 - Guard </h3>
@@ -141,6 +115,18 @@
                 <p>1 in deck. You are out of the round if you discard the Princess.</p>
                 <h4>~ Good Luck ~</h4>
         </div>        
+    </div>
+
+    <div id="prince-effect-modal">
+        <div class="modal-textbox-small">
+            <div>
+                <h2>Choose a player to discard a card:</h2>
+            </div>
+            <div id="prince-effect-button-div">
+                <button id="prince-effect-player1-button">Yourself</button>
+                <button id="prince-effect-opponent-button">Opponent</button>
+            </div>
+        </div>
     </div>
     
 </body>
