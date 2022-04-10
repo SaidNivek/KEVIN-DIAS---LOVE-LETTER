@@ -1,59 +1,67 @@
 // Global variable declarations
 // Objects for the cards, with values, image, rules, number in deck, and name assigned
 const cards = [
+    emptyCard = {        
+            name: "No Cards Left",
+            value: 0,        
+            image: "Empty Image",
+            rules: "No cards left, you lose the round",
+            numInDeck: 0,
+    },
     guard = {
         name: "Guard",
         value: 1,        
-        image: "Guard Image",
+        image: "./images/guard.jpg",
         rules: "Name a non-guard card.  If opponent has that card in hand, they are out of the round.",
         numInDeck: 5,
+
     },
     priest = {
         name: "Priest",
         value: 2,        
-        image: "Priest Image",
+        image: "./images/priest.jpg",
         rules: "Look at opponent's hand",
         numInDeck: 2,
     },
     baron = {
         name: "Baron",
         value: 3,        
-        image: "Baron Image",
+        image: "./images/baron.jpg",
         rules: "Compare hands with your opponent. The player with the lower value is out of the round. If tied, nothing happens.",
         numInDeck: 2,
     },
     handmaid = {
         name: "Handmaid",
         value: 4,        
-        image: "Handmaid Image",
+        image: "./images/handmaid.jpg",
         rules: "Until your next turn, ignore all effects from opponent's cards.",
         numInDeck: 2,
     },
     prince = {
         name: "Prince",
         value: 5,        
-        image: "Prince Image",
+        image: "./images/prince.jpg",
         rules: "Choose yourself or another player to discard their hand and draw a new card.",
         numInDeck: 2,
     },
     king = {
         name: "King",
         value: 6,        
-        image: "King Image",
+        image: "./images/king.jpg",
         rules: "Trade hands with opponent.",
         numInDeck: 1,
     },
     countess = {
         name: "Countess",
         value: 7,        
-        image: "Countess Image",
+        image: "./images/countess.jpg",
         rules: "If you have this card and the King or Prince in your hand, you MUST discard the Countess.",
         numInDeck: 1,
     },
     princess = {
         name: "Princess",
         value: 8,        
-        image: "Princess Image",
+        image: "./images/princess.jpg",
         rules: "If you discard the Princess, you are out of the round.",
         numInDeck: 1,
     },
@@ -79,14 +87,14 @@ let deck = []
 // Empty object for the removed card, which is removed at the start of game and revealed at the end of the game (stretch)
 let removedCard = {}
 // Variables to hold the number of discarded cards, updated throughout the course of a game
-let discardedGuards = 0;
-let discardedPriests = 0;
-let discardedBarons = 0;
-let discardedHandmaids = 0;
-let discardedPrinces = 0;
-let discardedKing = 0;
-let discardedCountess = 0;
-let discardedPrincess = 0;
+let discardedGuards = 0
+let discardedPriests = 0
+let discardedBarons = 0
+let discardedHandmaids = 0
+let discardedPrinces = 0
+let discardedKing = 0
+let discardedCountess = 0
+let discardedPrincess = 0
 // Objects to hold the cards that are drawn for later purposes
 let playerCard1 = {}
 let playerCard2 = ''
@@ -103,31 +111,22 @@ const $playButton = $('#play-button')
 const $gameBoard = $('.gameboard-div')
 const $startGameDiv = $('#start-game-div')
 // Get the objects from the DOM for the general game rules modal
-const $generalRulesOpenButton = $('#open-general-rules-modal');
-const $generalRulesModal = $('#general-rules-modal');
+const $generalRulesOpenButton = $('#open-general-rules-modal')
+const $generalRulesModal = $('#general-rules-modal')
 const $generalRulesCloseButton = $('#general-rules-close')
 // Get the objects from the DOM for the card game rules modal
 const $cardRulesOpenButton = $('#open-card-rules-modal')
-const $cardRulesModal = $('#card-rules-modal');
+const $cardRulesModal = $('#card-rules-modal')
 const $cardRulesCloseButton = $('#card-rules-close')
 // Get the objects for player card 1
 const $playerCard1 = $('#player-card-1')
-const $playerCard1Value = $('#player-card-1-value')
-const $playerCard1Name = $('#player-card-1-name')
 const $playerCard1Image = $('#player-card-1-image')
-const $playerCard1Rules = $('#player-card-1-rules')
 //Get the objects for player card 2
 const $playerCard2 = $('#player-card-2')
-const $playerCard2Value = $('#player-card-2-value')
-const $playerCard2Name = $('#player-card-2-name')
 const $playerCard2Image = $('#player-card-2-image')
-const $playerCard2Rules = $('#player-card-2-rules')
 //Get the objects for opponent card 1 (for testing, will not be revealed in regular game)
 const $opponentCard1 = $('#opponent-card-1')
-const $opponentCard1Value = $('#opponent-card-1-value')
-const $opponentCard1Name = $('#opponent-card-1-name')
 const $opponentCard1Image = $('#opponent-card-1-image')
-const $opponentCard1Rules = $('#opponent-card-1-rules')
 // Get DOM objects for the draw deck and the removed card position
 const $drawDeck = $('#draw-deck')
 const $removedCard = $('#removed-card')
@@ -145,8 +144,13 @@ const $playerWinTokens = $('#player-win-tokens')
 const $opponentWinTokens = $('#opponent-win-tokens')
 // Get restart-button to reset the game
 const $restartButton = $('#restart-button')
-//Get end-of-game-message to display message at end of round and end of game
+//Get end-of-game-messages to display message at end of round and end of game
 const $endOfGameMessage = $('#end-of-game-message')
+const $supplementalEndOfGameMessage = $('#supplemental-end-of-game-message')
+// Get prince effect modal to display and buttons to select who should discard a card
+const $princeEffectModal = $('#prince-effect-modal')
+const $princeDiscardPlayer1Card = $('#prince-effect-player1-button')
+const $princeDiscardOpponentCard = $('#prince-effect-opponent-button')
 
 // Listeners
 // Set listener to start the game
@@ -155,14 +159,14 @@ $playButton.click(function() {
     $gameBoard.css('display', 'flex')
     $startGameDiv.css('display', 'none')
     deck = createDeck()
-    removedCard = removeTopCard();
+    removedCard = removeTopCard()
     // Used to discard 3 cards from the top of the deck at beginning of the game
     discardCard()
     discardCard()
     discardCard()
     drawOpponentCard1()
     drawPlayerCard1()
-    player1.currentPlayer = true;
+    player1.currentPlayer = true
     $playerCard2.css('display', 'none')
     setDrawDeckNum()
 }) 
@@ -174,11 +178,12 @@ $restartButton.click(function() {
     if(lastCardPlayed === "Baron") {
         setDrawDeckListener()
     }
+    lastCardPlayed = ''
     resetDiscardPiles()
-    player1.currentPlayer = false;
+    player1.currentPlayer = false
     $restartButton.css('display', 'none')
     deck = createDeck()
-    removedCard = removeTopCard();
+    removedCard = removeTopCard()
     $removedCard.text('Removed Card - who is it?')
     // Used to discard 3 cards from the top of the deck at beginning of the game
     discardCard()
@@ -186,7 +191,7 @@ $restartButton.click(function() {
     discardCard()
     drawOpponentCard1()
     drawPlayerCard1()
-    player1.currentPlayer = true;
+    player1.currentPlayer = true
     $playerCard2.css('display', 'none')
     playerCard2 = ''
     setDrawDeckNum()
@@ -217,11 +222,8 @@ $playerCard1.click(function() {
     // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
     if(playerCard2 !== '') {
         if(players[0].currentPlayer){
-            discardCard(playerCard1)                     
-            $playerCard1Value.text(playerCard2.value)
-            $playerCard1Name.text(playerCard2.name)
-            $playerCard1Image.text(playerCard2.image)
-            $playerCard1Rules.text(playerCard2.rules)
+            discardCard(playerCard1)   
+            $playerCard1Image.attr('src', playerCard2.image)               
             $playerCard2.css('display', 'none')
             playerCard2 = ''        
         }
@@ -291,11 +293,7 @@ function checkForCountess() {
             if(playerCard2 !== '') {
                 if(players[0].currentPlayer){
                     discardCard(playerCard1)                     
-                    $playerCard1Value.text(playerCard2.value)
-                    $playerCard1Name.text(playerCard2.name)
-                    $playerCard1Image.text(playerCard2.image)
-                    $playerCard1Rules.text(playerCard2.rules)
-                    $playerCard2.css('display', 'none')
+                    $playerCard1Image.attr('src',playerCard2.image)
                     playerCard2 = ''        
                 }
             }
@@ -310,6 +308,7 @@ function setDrawDeckNum() {
 
 // This function will discard a card to its appropriate discard pile or PlayerCard1 to its appropriate discard pile
 // If there is no current player (at the start of game) will move to dicardPile function without calling on cardTakesEffect function
+// Also used in the princeEffect() function
 function discardCard(aCard) {
     if (!player1.currentPlayer && !opponent.currentPlayer) {
         aCard = deck.pop()
@@ -319,6 +318,14 @@ function discardCard(aCard) {
         playerCard1 = playerCard2  
         console.log(playerCard1)
         cardTakesEffect(aCard)
+    }
+}
+
+function discardOpponentCard(aCard) {
+    if (player1.currentPlayer) {
+        if (deck.length > 0) {
+            placeCardInDiscardPile(aCard) 
+        }      
     }
 }
 
@@ -333,14 +340,11 @@ function discardPlayerCard2(aCard) {
 
 // This function will set the 1st card of player 1 to the passed in card, drawn from the deck
 // It will set the remaining cards in the deck to deck.length
-// This will only happen during setup of the game, one time
+// This will only happen during setup of the game, one time and during the princeEffect()
 function drawPlayerCard1() {
     if (deck.length > 0) {
         playerCard1 = deck.pop()
-        $playerCard1Value.text(playerCard1.value)
-        $playerCard1Name.text(playerCard1.name)
-        $playerCard1Image.text(playerCard1.image)
-        $playerCard1Rules.text(playerCard1.rules)
+        $playerCard1Image.attr('src', playerCard1.image)
         setDrawDeckNum()
     } 
 }
@@ -350,10 +354,8 @@ function drawPlayerCard1() {
 function drawOpponentCard1() {
     if (deck.length > 0) {
         opponentCard1 = deck.pop()
-        $opponentCard1Value.text(opponentCard1.value)
-        $opponentCard1Name.text(opponentCard1.name)
-        $opponentCard1Image.text(opponentCard1.image)
-        $opponentCard1Rules.text(opponentCard1.rules)
+        $opponentCard1Image.attr('src', opponentCard1.image)
+
         setDrawDeckNum()
     }
 }
@@ -385,10 +387,8 @@ function drawCard() {
         // Prevent player form drawing cards if player has 2 cards in hand already
         if (deck.length > 0 && playerCard2 === '') {
             playerCard2 = deck.pop()
-            $playerCard2Value.text(playerCard2.value)
-            $playerCard2Name.text(playerCard2.name)
-            $playerCard2Image.text(playerCard2.image)
-            $playerCard2Rules.text(playerCard2.rules)
+            $playerCard2Image.attr('src', playerCard2.image)
+
             setDrawDeckNum()
         } 
     } else if (opponent.currentPlayer) {
@@ -413,10 +413,10 @@ function cardTakesEffect(aCard) {
             // handmaidEffect()
             break;
         case "Prince":
-            // princeEffect()
+                princeEffect()
             break;
         case "King":
-            kingEffect()
+            // kingEffect()
             break;
         case "Countess":
             // checkForCountess function created to deal with Countess pre-discard rule
@@ -464,28 +464,68 @@ function handmaidEffect() {
 
 }
 
+// Force a player to discard their current card and draw a new one
+// If there are no cards left in the deck, then the player who must draw a card loses, as they have no value to compare for the win
 function princeEffect() {
-
+    $princeEffectModal.css('display', 'block')
 }
+
+// Listeners specifically for the prince effect function, only declared once at start of game for us in the princeEffect()
+// Will select yourself to discard your current card, immediately drawing from the draw pile, if any cards are left
+$princeDiscardPlayer1Card.click(function() {
+    if(deck.length > 1) {
+        discardCard(playerCard1)
+        drawPlayerCard1()
+    } else if(deck.length === 1) {
+        discardCard(playerCard1)
+        drawPlayerCard1()
+    } else {
+        discardCard(playerCard1)
+        $endOfGameMessage.text(`You could not draw from the deck, so your opponent wins a token of affection!`)
+        playerCard1 = {}
+        // giveOpponentTokenOfAffection()
+    }
+    player1.currentPlayer = true;   
+    checkForEmptyDeckWin()
+    $princeEffectModal.css('display', 'none')
+
+})
+// Will select your opponent to discard your current card, immediately drawing from the draw pile, if any cards are left
+$princeDiscardOpponentCard.click(function() {
+    if (deck.length > 1) {
+        discardOpponentCard(opponentCard1)
+        drawOpponentCard1()
+    } else if(deck.length === 1) {
+        discardOpponentCard(opponentCard1)
+        drawOpponentCard1()
+    } else {
+        discardCard(opponentCard1)
+
+        $opponentCard1Image.attr('src', opponentCard1.image)
+
+        $supplementalEndOfGameMessage.text(`Your opponent could not draw from the deck, so you win a token of affection!`)
+        $princeEffectModal.css('display', 'none')
+        // givePlayerTokenOfAffection()
+    }    
+    player1.currentPlayer = true;   
+    checkForEmptyDeckWin()
+    $princeEffectModal.css('display', 'none')
+})
 
 // This trades your card with the opponents' card
 function kingEffect() {
     let tempCard = opponentCard1
-    $opponentCard1Value.text(playerCard1.value)
-    $opponentCard1Name.text(playerCard1.name)
-    $opponentCard1Image.text(playerCard1.image)
-    $opponentCard1Rules.text(playerCard1.rules)
-    $playerCard1Value.text(tempCard.value)
-    $playerCard1Name.text(tempCard.name)
-    $playerCard1Image.text(tempCard.image)
-    $playerCard1Rules.text(tempCard.rules)
+    opponentCard1 = playerCard1
+    playerCard1 = tempCard
+    $opponentCard1Image.attr('src', playerCard1.image)
+    $playerCard1Image.attr('src', tempCard.image)
 }
 
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
     console.log('if princess is discarded, you lose the game')
     $endOfGameMessage.text('Princess was discarded, opponent wins.')
-    player1.currentPlayer = false;
+    player1.currentPlayer = false
     $restartButton.css('display', 'block')
     giveOpponentTokenOfAffection()
 }
@@ -533,15 +573,17 @@ function giveOpponentTokenOfAffection() {
 // Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
 function checkForEmptyDeckWin() {
     $removedCard.text(`The removed card was: ${removedCard.name}`)
-    if (playerCard1.value > opponentCard1.value) {
-        givePlayerTokenOfAffection()
-        console.log('player 1 wins - test')
-    } else if (opponentCard1.value > playerCard1.value) {
-        giveOpponentTokenOfAffection()
-    } else if ((playerCard1.value === opponentCard1.value)) {
-        $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
+    if (deck.length === 0) {
+        if (playerCard1.value > opponentCard1.value && player1.currentPlayer) {
+            givePlayerTokenOfAffection()
+            console.log('player 1 wins - test')
+        } else if (opponentCard1.value > playerCard1.value && player1.currentPlayer) {
+            giveOpponentTokenOfAffection()
+        } else if ((playerCard1.value === opponentCard1.value && player1.currentPlayer)) {
+            $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
+        }
+        $restartButton.css('display', 'block')
     }
-    $restartButton.css('display', 'block')
 }
 
 // This function will take the discarded card and add it to that card's specific discard pile, keeping track of total discarded
@@ -579,14 +621,14 @@ function placeCardInDiscardPile(aCard) {
 
 // Reset the discard piles and their text when restart button is clicked
 function resetDiscardPiles() {
-    discardedGuards = 0;
-    discardedPriests = 0;
-    discardedBarons = 0;
-    discardedHandmaids = 0;
-    discardedPrinces = 0;
-    discardedKing = 0;
-    discardedCountess = 0;
-    discardedPrincess = 0;
+    discardedGuards = 0
+    discardedPriests = 0
+    discardedBarons = 0
+    discardedHandmaids = 0
+    discardedPrinces = 0
+    discardedKing = 0
+    discardedCountess = 0
+    discardedPrincess = 0
     $discardedGuards.text(`${discardedGuards}`)
     $discardedPriests.text(`${discardedPriests}`)
     $discardedBarons.text(`${discardedBarons}`)
@@ -597,28 +639,22 @@ function resetDiscardPiles() {
     $discardedPrincess.text(`${discardedPrincess}`)
 }
 
-
 // Start to implement card rules 
 //     Guard - Create simple selection of possible cards the opponent has (buttons)
 //             Ensure the buttons work and can correctly identify the dummy card given to opponent
 //             A match means the player gets a win token
-//     Priest - Reveal the opponent's dummy card for 5 seconds
-//     Baron - Compare the player's not discarded card with the opponent's dummy card
-//             Ensure that the logic can identify the values of both cards and compare, ties do nothing
-//             If player has a lower value card, opponent gets a win token
-//             If player has a higher value card, player gets a win token
-//     Handmaid - Player is untargetable by opponents' card effects until next turn (stretch goal with two players)
-//             Guard, Priest, Baron, Prince, King have no effect while Handmaid is active
 //     Prince - Choose who should discard and draw a new card, player or opponent      
 //             If self, draw a card from the deck
 //             If opponent, give them a new dummy card (for now)
 //             If Princess is discarded, the discarding player loses and opponent gets a win token
-//     King - Trade cards with the opponent (player would acquire the dummy card, opponent would receive a real card for this test)
 
 // Stretch Goals
 //     Confirmation of card to discard each turn
 //     Confirmation of Guard Guess choice
 //     Check to see if all of one card has been played already, removing the option of that card to be guessed with a Guard Guess
-//      Create a pop-up modal for the guard guess that only appears when the guard is discarded, asking for your selection
+//     Create a pop-up modal for the guard guess that only appears when the guard is discarded, asking for your selection
 //     Play against yourself with two active hands
 //     Play against an AI who makes basic decisions (as simple as possible, with very few AI logic rules)
+//     Priest - Reveal the opponent's dummy card for 5 seconds
+//     Handmaid - Player is untargetable by opponents' card effects until next turn (stretch goal with two players)
+//          Guard, Priest, Baron, Prince, King have no effect while Handmaid is active
