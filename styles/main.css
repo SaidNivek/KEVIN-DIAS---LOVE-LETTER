@@ -69,6 +69,10 @@ body {
     font-family: 'Source Serif Pro', serif;;
 }
 
+button {
+    background-image:noneurl('/images/bluevelvet.jpg')
+}
+
 h1 {
     font-size: 88px;
     font-family: 'Lavishly Yours', cursive;
@@ -209,6 +213,11 @@ img {
     align-items: center;
     text-align: center;
 }
+
+/* #player-card-1-image, #player-card-2-image {
+    width: 250px;
+    height: auto;
+} */
 
 #discarded-card-area {
     display: flex;

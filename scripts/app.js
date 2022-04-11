@@ -362,7 +362,6 @@ function drawOpponentCard1() {
     if (deck.length > 0) {
         opponentCard1 = deck.pop()
         $opponentCard1Image.attr('src', opponentCard1.image)
-
         setDrawDeckNum()
     }
 }
@@ -395,7 +394,6 @@ function drawCard() {
         if (deck.length > 0 && playerCard2 === '') {
             playerCard2 = deck.pop()
             $playerCard2Image.attr('src', playerCard2.image)
-
             setDrawDeckNum()
         } 
     } else if (opponent.currentPlayer) {
@@ -420,7 +418,10 @@ function cardTakesEffect(aCard) {
             // handmaidEffect()
             break;
         case "Prince":
-                princeEffect()
+            if (deck.length === 0) {
+                player1.currentPlayer = false;
+            }
+            princeEffect()
             break;
         case "King":
             // kingEffect()
@@ -430,7 +431,7 @@ function cardTakesEffect(aCard) {
             // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            princessEffect()
+            // princessEffect()
             break;
         default:
             break;
@@ -480,17 +481,23 @@ function princeEffect() {
 // Listeners specifically for the prince effect function, only declared once at start of game for us in the princeEffect()
 // Will select yourself to discard your current card, immediately drawing from the draw pile, if any cards are left
 $princeDiscardPlayer1Card.click(function() {
-    if(deck.length > 1) {
+    if(playerCard1.name === "Princess" || playerCard2.name === "Princess") {
+        $endOfGameMessage.text('Princess was discarded, opponent wins.')
+        player1.currentPlayer = false
+        $restartButton.css('display', 'block')
+        giveOpponentTokenOfAffection()
+    } else if(deck.length > 1) {
         discardCard(playerCard1)
         drawPlayerCard1()
     } else if(deck.length === 1) {
         discardCard(playerCard1)
         drawPlayerCard1()
     } else {
-        discardCard(playerCard1)
+        $playerCard1Image.attr('src', '/images/cardback.png')
         $endOfGameMessage.text(`You could not draw from the deck, so your opponent wins a token of affection!`)
         playerCard1 = {}
-        // giveOpponentTokenOfAffection()
+        playerCard2 = {}
+        giveOpponentTokenOfAffection()
     }
     checkForEmptyDeckWin()
     $princeEffectModal.css('display', 'none')
@@ -498,11 +505,10 @@ $princeDiscardPlayer1Card.click(function() {
 // Will select your opponent to discard your current card, immediately drawing from the draw pile, if any cards are left
 $princeDiscardOpponentCard.click(function() {
     if(opponentCard1.name === "Princess") {
-    $supplementalEndOfGameMessage.text('Princess was discarded by opponent, player wins.')
-    player1.currentPlayer = false
-    $restartButton.css('display', 'block')
-    givePlayerTokenOfAffection()
-
+        $supplementalEndOfGameMessage.text('Princess was discarded by opponent, player wins.')
+        player1.currentPlayer = false
+        $restartButton.css('display', 'block')
+        givePlayerTokenOfAffection()
     } else if (deck.length > 1) {
         discardOpponentCard(opponentCard1)
         drawOpponentCard1()
@@ -510,8 +516,8 @@ $princeDiscardOpponentCard.click(function() {
         discardOpponentCard(opponentCard1)
         drawOpponentCard1()
     } else {
-        discardCard(opponentCard1)
-        $opponentCard1Image.attr('src', opponentCard1.image)
+        // discardCard(opponentCard1)
+        $opponentCard1Image.attr('src', '/images/cardback.png')
         $supplementalEndOfGameMessage.text(`Your opponent could not draw from the deck, so you win a token of affection!`)
         $princeEffectModal.css('display', 'none')
         // givePlayerTokenOfAffection()
@@ -589,10 +595,9 @@ function giveOpponentTokenOfAffection() {
 // Reveal the name of the removed card
 // Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
 function checkForEmptyDeckWin() {
-    if (deck.length === 0) {
+    if (deck.length === 0 && player1.currentPlayer) {
         if (playerCard1.value > opponentCard1.value && player1.currentPlayer) {
             givePlayerTokenOfAffection()
-            console.log('player 1 wins - test')
         } else if (opponentCard1.value > playerCard1.value && player1.currentPlayer) {
             giveOpponentTokenOfAffection()
         } else if ((playerCard1.value === opponentCard1.value && player1.currentPlayer)) {
