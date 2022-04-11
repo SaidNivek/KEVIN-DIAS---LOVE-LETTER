@@ -531,10 +531,17 @@ function kingEffect() {
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
     console.log('if princess is discarded, you lose the game')
-    $endOfGameMessage.text('Princess was discarded, opponent wins.')
-    player1.currentPlayer = false
-    $restartButton.css('display', 'block')
-    giveOpponentTokenOfAffection()
+    if(playerCard1.name === "Princess" || playerCard2.name === "Princess") {
+        $endOfGameMessage.text('Princess was discarded, opponent wins.')
+        player1.currentPlayer = false
+        $restartButton.css('display', 'block')
+        giveOpponentTokenOfAffection()
+    } else if(opponentCard1.name === "Princess") {
+        $endOfGameMessage.text('Princess was discarded by opponent, player wins.')
+        player1.currentPlayer = false
+        $restartButton.css('display', 'block')
+        givePlayerTokenOfAffection()
+    }
 }
 
 // Give the player a token of affection, based off of the card's effects

@@ -168,9 +168,7 @@ img {
 }
 
 #removed-card-image {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    width: 250px;
 }
 
 #start-game-div {
