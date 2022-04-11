@@ -350,7 +350,6 @@ function discardCard(aCard) {
         placeCardInDiscardPile(aCard) 
         cardTakesEffect(aCard)
         playerCard1 = playerCard2  
-        console.log(playerCard1)
         // Guard has some special rules that need to be asynchronous, will work on that later
              
     }
@@ -374,7 +373,6 @@ function discardCardfromPrince(aCard) {
 function discardPlayerCard2(aCard) {
     if (player1.currentPlayer) {       
         placeCardInDiscardPile(aCard) 
-        console.log(playerCard1)
         cardTakesEffect(aCard)
     }
 }
@@ -437,7 +435,6 @@ function drawCard() {
 
 // This function will call the appropriate function for the card that was just discarded by the player
 function cardTakesEffect(aCard) {
-    console.log('cardTakesEffect testing')
     switch(aCard.name) {
         case "Guard":
             // Set currentPlayer to flase to prevent end of deck win from happening
@@ -513,14 +510,12 @@ function priestEffect() {
 // Compare your remaining card with the opponent's card in hand.  THe lower value loses and that player is removed from the game.
 function baronEffect() {
     if (playerCard1.value > opponentCard1.value) {
-        console.log('player 1 baron wins - test')
         $supplementalEndOfGameMessage.text(`Player 1 had a higher card value and wins this round thanks to the Baron's influence!`)
         $drawDeck.unbind()
         givePlayerTokenOfAffection()
         $restartButton.css('display', 'block')
         lastCardPlayed = "Baron"
     } else if (opponentCard1.value > playerCard1.value) {
-        console.log('player 1 baron wins - test')
         $supplementalEndOfGameMessage.text(`Your opponent had a higher card value and wins this round thanks to the Baron's influence!`)
         $drawDeck.unbind()
         giveOpponentTokenOfAffection()
@@ -598,14 +593,12 @@ function kingEffect() {
         let tempCard = opponentCard1
         opponentCard1 = playerCard1
         playerCard1 = tempCard
-        console.log(playerCard1)
         $opponentCard1Image.attr('src', opponentCard1.image)
         $playerCard1Image.attr('src', tempCard.image)
     } else if( playerCard1.name === "King") {
         let tempCard = opponentCard1
         opponentCard1 = playerCard2
         playerCard2 = tempCard
-        console.log(playerCard1)
         $opponentCard1Image.attr('src', opponentCard1.image)
         $playerCard1Image.attr('src', tempCard.image)
     }
@@ -614,7 +607,6 @@ function kingEffect() {
 
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
-    console.log('if princess is discarded, you lose the game')
     if(playerCard1.name === "Princess" || playerCard2.name === "Princess") {
         $endOfGameMessage.text('Princess was discarded, opponent wins.')
         player1.currentPlayer = false
