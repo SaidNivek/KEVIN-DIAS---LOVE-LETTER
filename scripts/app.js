@@ -274,6 +274,7 @@ $drawDeck.click(function() {
         if(player1.currentPlayer){
             drawCard()
             $playerCard2.css('display', 'flex')
+            $endOfGameMessage.text('')
         }
     }
     checkForCountess()
@@ -430,6 +431,9 @@ function cardTakesEffect(aCard) {
     console.log('cardTakesEffect testing')
     switch(aCard.name) {
         case "Guard":
+            if (deck.length === 0) {
+                player1.currentPlayer = false;
+            }
             guardEffect()
             break;
         case "Priest":
@@ -465,18 +469,22 @@ function cardTakesEffect(aCard) {
     }
 }
 
-// This function compares the value of the clicked guess with the opponent's current card.  If the two are the same, the opponent is removed from the game and the player receives a point.
+//This function pops open the guard modal for player guess selection
 // Might need some asyncronous stuff here to wait for the click, but gonna hack it for now
 function guardEffect() {
     // reveal the guard guess modal
     $guardEffectModal.css('display', 'flex')
 }
 
+// This function compares the value of the clicked guess with the opponent's current card.  If the two are the same, the opponent is removed from the game and the player receives a point.
 function guardComparison(aClick) {
     if (aClick === opponentCard1.name) {
-        console.log('we have a match')
+        player1.currentPlayer = false
+        givePlayerTokenOfAffection()
+        $supplementalEndOfGameMessage.text("You guess correctly! You steal your opponent's letter away and burn it.")
+        end
     } else {
-        console.log('not a match')
+        $endOfGameMessage.text("You guessed incorrectly. Try harder next time.")
     }
 }
 
