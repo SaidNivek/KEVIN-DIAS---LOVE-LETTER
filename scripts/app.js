@@ -364,6 +364,11 @@ function discardOpponentCard(aCard) {
     }
 }
 
+function discardCardfromPrince(aCard) {
+    placeCardInDiscardPile(aCard) 
+    drawPlayerCard1()
+}
+
 // This function will discard playercard2 to its appropriate discard pile and NOT change the value of playerCard1
 function discardPlayerCard2(aCard) {
     if (player1.currentPlayer) {       
@@ -435,36 +440,36 @@ function cardTakesEffect(aCard) {
     switch(aCard.name) {
         case "Guard":
             // Set currentPlayer to flase to prevent end of deck win from happening
-            // if (deck.length === 0) {
-            //     player1.currentPlayer = false;
-            // }
-            // guardEffect()
+            if (deck.length === 0) {
+                player1.currentPlayer = false;
+            }
+            guardEffect()
             break;
         case "Priest":
             // priestEffect()
             break;
             case "Baron":
-            // baronEffect()
+            baronEffect()
             break;
         case "Handmaid":
             // handmaidEffect()
             break;
         case "Prince":
             // Set currentPlayer to flase to prevent end of deck win from happening
-            // if (deck.length === 0) {
-            //     player1.currentPlayer = false;
-            // }
-            // princeEffect()
+            if (deck.length === 0) {
+                player1.currentPlayer = false;
+            }
+            princeEffect()
             break;
         case "King":
-            // kingEffect()
+            kingEffect()
             break;
         case "Countess":
             // checkForCountess function created to deal with Countess pre-discard rule
             // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            // princessEffect()
+            princessEffect()
             break;
         default:
             break;
@@ -545,10 +550,10 @@ $princeDiscardPlayer1Card.click(function() {
         $restartButton.css('display', 'block')
         giveOpponentTokenOfAffection()
     } else if(deck.length > 1) {
-        discardCard(playerCard1)
+        discardCardfromPrince(playerCard1)
         drawPlayerCard1()
     } else if(deck.length === 1) {
-        discardCard(playerCard1)
+        discardCardfromPrince(playerCard1)
         drawPlayerCard1()
     } else {
         $playerCard1Image.attr('src', '/images/cardback.png')
