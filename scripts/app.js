@@ -364,6 +364,7 @@ function discardOpponentCard(aCard) {
     }
 }
 
+//This function will discard a card in the princeEffect() without causing the discarded card to cause its own effect to take place
 function discardCardfromPrince(aCard) {
     placeCardInDiscardPile(aCard) 
     drawPlayerCard1()
@@ -513,14 +514,14 @@ function priestEffect() {
 function baronEffect() {
     if (playerCard1.value > opponentCard1.value) {
         console.log('player 1 baron wins - test')
-        $endOfGameMessage.text(`Player 1 had a higher card value and wins this round thanks to the Baron's influence!`)
+        $supplementalEndOfGameMessage.text(`Player 1 had a higher card value and wins this round thanks to the Baron's influence!`)
         $drawDeck.unbind()
         givePlayerTokenOfAffection()
         $restartButton.css('display', 'block')
         lastCardPlayed = "Baron"
     } else if (opponentCard1.value > playerCard1.value) {
         console.log('player 1 baron wins - test')
-        $endOfGameMessage.text(`Your opponent had a higher card value and wins this round thanks to the Baron's influence!`)
+        $supplementalEndOfGameMessage.text(`Your opponent had a higher card value and wins this round thanks to the Baron's influence!`)
         $drawDeck.unbind()
         giveOpponentTokenOfAffection()
         $restartButton.css('display', 'block')
