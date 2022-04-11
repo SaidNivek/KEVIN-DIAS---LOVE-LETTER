@@ -104,12 +104,15 @@ let opponentCard2 = {}
 const WINS_NEEDED = 3
 // Needed to check for rebinds on the $drawDeck (fix this hack-y way later)
 let lastCardPlayed = {}
+// Constant for the heart image for win tokens
+const HEART_IMAGE = "./images/heart.png"
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
 const $playButton = $('#play-button')
 const $gameBoard = $('.gameboard-div')
 const $startGameDiv = $('#start-game-div')
+const $deckAreaDiv = $('#deck-area-div')
 // Get the objects from the DOM for the general game rules modal
 const $generalRulesOpenButton = $('#open-general-rules-modal')
 const $generalRulesModal = $('#general-rules-modal')
@@ -130,6 +133,8 @@ const $opponentCard1Image = $('#opponent-card-1-image')
 // Get DOM objects for the draw deck and the removed card position
 const $drawDeck = $('#draw-deck')
 const $removedCard = $('#removed-card')
+const $cardsremaining = $('#cards-remaining')
+const $removedCardImage = $('#removed-card-image')
 // Get DOM objects for the spans in the discard pile
 const $discardedGuards = $('#discarded-guard')
 const $discardedPriests = $('#discarded-priest')
@@ -158,6 +163,7 @@ const $princeDiscardOpponentCard = $('#prince-effect-opponent-button')
 $playButton.click(function() {
     $gameBoard.css('display', 'flex')
     $startGameDiv.css('display', 'none')
+    $deckAreaDiv.css('display', 'block')
     deck = createDeck()
     removedCard = removeTopCard()
     // Used to discard 3 cards from the top of the deck at beginning of the game
@@ -193,6 +199,7 @@ $restartButton.click(function() {
     drawPlayerCard1()
     player1.currentPlayer = true
     $playerCard2.css('display', 'none')
+
     playerCard2 = ''
     setDrawDeckNum()
     $endOfGameMessage.text('')
@@ -303,7 +310,7 @@ function checkForCountess() {
 
 // This function sets the draw deck remaining value to deck.length and updates it to the DOM
 function setDrawDeckNum() {
-    $drawDeck.text(`Click Here to Draw a Card Cards Remaining: ${deck.length}`)
+    $cardsremaining.text(`Cards Remaining: ${deck.length}`)
 }
 
 // This function will discard a card to its appropriate discard pile or PlayerCard1 to its appropriate discard pile
@@ -533,6 +540,7 @@ function princessEffect() {
 // Give the player a token of affection, based off of the card's effects
 function givePlayerTokenOfAffection() {
     $removedCard.text(`The removed card was: ${removedCard.name}`)
+    $removedCardImage.css('background-image', `url(${removedCard.image})`)
     player1.points += 1
     let winText = ''
     $endOfGameMessage.text('Player 1 wins a token of affection from the Princess')
@@ -551,6 +559,7 @@ function givePlayerTokenOfAffection() {
 // Give the opponent a token of affection, based off of the card's effects.
 function giveOpponentTokenOfAffection() {
     $removedCard.text(`The removed card was: ${removedCard.name}`)
+    $removedCardImage.css('background-image', `url(${removedCard.image})`)
     opponent.points += 1
     let winText = ''
     $endOfGameMessage.text('Opponent wins a token of affection from the Princess')
@@ -573,6 +582,7 @@ function giveOpponentTokenOfAffection() {
 // Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
 function checkForEmptyDeckWin() {
     $removedCard.text(`The removed card was: ${removedCard.name}`)
+    $removedCardImage.css('background-image', `url(${removedCard.image})`)
     if (deck.length === 0) {
         if (playerCard1.value > opponentCard1.value && player1.currentPlayer) {
             givePlayerTokenOfAffection()

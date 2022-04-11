@@ -41,20 +41,29 @@
         </div>        
     </div>
 
+    <div id="deck-area-div">
+        <h3>Click below to draw cards</h3>
+        <div id="draw-deck" class="deck"></div>
+        <h3 id="cards-remaining"></h3>
+        <h3 id="removed-card">Removed Card - who is it?</h3>
+        <div id="removed-card-image" class="deck"></div>
+    </div>
+
     <div class="gameboard-div">
         <div id="opponent-mat">
-            <div id="opponent-card-1" class="card-in-hand">
+            <div id="opponent-card-1" class="opponent-card-in-hand">
                 <img id="opponent-card-1-image" />
             </div>
-            <div id="opponent-card-2" class="card-in-hand">opponent card 2</div>
-            <div id="opponent-win-tokens" class="win-tokens">opponent win tokens</div>
+            <div id="opponent-card-2" class="opponent-card-in-hand">opponent card 2</div>
+            <div id="opponent-wins-div">
+                <h3>Opponent Wins</h3>
+                <div id="opponent-win-tokens" class="win-tokens"></div>
+            </div>
+            
         </div>
 
         <div id="play-area-mat">
-            <div id="deck-area-div">
-                <div id="draw-deck" class="deck"></div>
-                <div id="removed-card" class="deck">Removed Card - who is it?</div>
-            </div>
+
             <div id="discarded-card-area">
                 <div id="discarded-cards-row-1">
                     <div class="discarded-card">1 - Guards Discarded:<span id="discarded-guard">0</span> / 5</div>
@@ -87,7 +96,11 @@
             <div id="player-card-2" class="card-in-hand">
                 <img id="player-card-2-image" alt="Player card 2">
             </div>
-            <div id="player-win-tokens" class="win-tokens">player win tokens</div>
+            <div id="player-win-div">
+                <h3>Player Wins</h3>
+                <div id="player-win-tokens" class="win-tokens"></div>
+            </div>
+            
         </div>
 
     </div>
@@ -99,8 +112,8 @@
             <h2>Card Rules of Love Letter</h2>
             <h3>1 - Guard </h3>
                 <p>5 Guards in deck. Name a non-Guard card. If the opponent has that card, they are removed from the round and you win the round.</p>
-            <h3>2 - Priest<h3>
-                    <p>2 in deck. Look at another player's hand (not as useful in MVP where both hands will be revealed, but for a stretch with AI it will be important for guesses)</p>
+            <h3>2 - Priest</h3>
+                <p>2 in deck. Look at another player's hand (not as useful in MVP where both hands will be revealed, but for a stretch with AI it will be important for guesses)</p>
             <h3>3 - Baron</h3>
                 <p>2 in deck. Compare hands with the other player. The player with the lowar value is out of the round and you win the game. Tied values are ignored and play resumes as normal.</p>
             <h3>4 - Handmaid</h3>
@@ -113,7 +126,7 @@
                 <p>1 in deck. If you have the Countess and a King or a Prince in your hand, you MUST discard the Countess. You can also choose to discard the Countess, even if you don't have a King or Prince in hand.</p>
             <h3>8 - Princess</h3>
                 <p>1 in deck. You are out of the round if you discard the Princess.</p>
-                <h4>~ Good Luck ~</h4>
+                <!-- <h4>~ Good Luck ~</h4> -->
         </div>        
     </div>
 
