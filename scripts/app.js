@@ -319,12 +319,14 @@ function checkForCountess() {
                 playerCard2 = ''
             }
         })
+        $playerCard1.unbind()
         $playerCard1.click(function() {
             // Only allow clicks if playerCard2 is not an empty string, otherwise, nothing will be clicked
             if(playerCard2 !== '') {
                 if(players[0].currentPlayer){
-                    discardCard(playerCard1)                     
-                    $playerCard1Image.attr('src',playerCard2.image)
+                    discardCard(playerCard1)   
+                    $playerCard1Image.attr('src', playerCard2.image)               
+                    $playerCard2.css('display', 'none')
                     playerCard2 = ''        
                 }
             }
@@ -433,10 +435,10 @@ function cardTakesEffect(aCard) {
     switch(aCard.name) {
         case "Guard":
             // Set currentPlayer to flase to prevent end of deck win from happening
-            if (deck.length === 0) {
-                player1.currentPlayer = false;
-            }
-            guardEffect()
+            // if (deck.length === 0) {
+            //     player1.currentPlayer = false;
+            // }
+            // guardEffect()
             break;
         case "Priest":
             // priestEffect()
@@ -586,12 +588,23 @@ $princeDiscardOpponentCard.click(function() {
 
 // This trades your card with the opponents' card
 function kingEffect() {
-    let tempCard = opponentCard1
-    opponentCard1 = playerCard1
-    playerCard1 = tempCard
-    $opponentCard1Image.attr('src', playerCard1.image)
-    $playerCard1Image.attr('src', tempCard.image)
+    if (playerCard2.name === "King") {
+        let tempCard = opponentCard1
+        opponentCard1 = playerCard1
+        playerCard1 = tempCard
+        console.log(playerCard1)
+        $opponentCard1Image.attr('src', opponentCard1.image)
+        $playerCard1Image.attr('src', tempCard.image)
+    } else if( playerCard1.name === "King") {
+        let tempCard = opponentCard1
+        opponentCard1 = playerCard2
+        playerCard2 = tempCard
+        console.log(playerCard1)
+        $opponentCard1Image.attr('src', opponentCard1.image)
+        $playerCard1Image.attr('src', tempCard.image)
+    }
 }
+
 
 // If the princess is discarded, the opponent wins.
 function princessEffect() {
@@ -719,15 +732,6 @@ function resetDiscardPiles() {
     $discardedCountess.text(`${discardedCountess}`)
     $discardedPrincess.text(`${discardedPrincess}`)
 }
-
-// Start to implement card rules 
-//     Guard - Create simple selection of possible cards the opponent has (buttons)
-//             Ensure the buttons work and can correctly identify the dummy card given to opponent
-//             A match means the player gets a win token
-//     Prince - Choose who should discard and draw a new card, player or opponent      
-//             If self, draw a card from the deck
-//             If opponent, give them a new dummy card (for now)
-//             If Princess is discarded, the discarding player loses and opponent gets a win token
 
 // Stretch Goals
 //     Confirmation of card to discard each turn
