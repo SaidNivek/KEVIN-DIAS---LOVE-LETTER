@@ -102,6 +102,13 @@ img {
     height: auto;
 }
 
+.button {
+    background-image: url('/images/bluevelvet.jpg');
+    color: white;
+    font-size: 24px;
+    font-family: 'Source Serif Pro', serif;
+}
+
 .gameboard-div {
     display: flex;
     flex-direction: column;
@@ -276,46 +283,64 @@ img {
     display: none;
 }
 
-.modal-textbox-large {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    gap: 10px;
-    padding: 15px;
-    background-color: white;
-	height: 90vh;
-	width: 1100px;
-	border-radius: 2px;
-    margin: 50px auto;   
-    padding: 35px; 
-	/*This will set the margins for the top and the bottom to 150px (or larger). The right and left will automatically set themselves (and keep the box centered horizontally).*/
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	/*This will give the box some depth.*/
-    background-image: url('/images/parchment.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    overflow-y: auto;
-}
-
-.modal-textbox-small {
+.modal-textbox-large, .modal-textbox-small, .modal-textbox-tiny {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     padding: 15px;
-    background-color: white;
-	height: 50vh;
-	width: 675px;
-	border-radius: 2px;
-    margin: 150px auto;
-	/*This will set the margins for the top and the bottom to 150px (or larger). The right and left will automatically set themselves (and keep the box centered horizontally).*/
+    /*This will set the margins for the top and the bottom to 150px (or larger). The right and left will automatically set themselves (and keep the box centered horizontally).*/
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	/*This will give the box some depth.*/
     background-image: url('/images/parchment.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+}
+
+.modal-textbox-large {
+    align-items: left;
+    padding: 15px;
+	height: 90vh;
+	width: 1100px;
+	border-radius: 2px;
+    margin: 50px auto;   
+    padding: 35px; 
+    overflow-y: auto;
+}
+
+.modal-textbox-small {
+    padding: 15px;
+	height: 50vh;
+	width: 675px;
+	border-radius: 2px;
+    margin: 150px auto;
+}
+
+.modal-textbox-tiny {
+    gap: 25px;
+    padding: 25px;
+	height: 25vh;
+	width: 675px;
+	border-radius: 2px;
+    margin: 150px auto;
+}
+
+#general-rules-close:visited, #card-rules-close:visited {
+    color: black;
+}
+
+#general-rules-close:active, #card-rules-close:active {
+    color: white;
+}
+
+#general-rules-close:hover, #card-rules-close:hover {
+    color: white;
+}
+
+#general-rules-close, #card-rules-close {
+    text-align: center;
+    font-size: 24px;
 }
 
 #open-general-rules-modal, #open-card-rules-modal {
