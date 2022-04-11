@@ -431,32 +431,35 @@ function cardTakesEffect(aCard) {
     console.log('cardTakesEffect testing')
     switch(aCard.name) {
         case "Guard":
+            if (deck.length === 0) {
+                player1.currentPlayer = false;
+            }
             guardEffect()
             break;
         case "Priest":
             // priestEffect()
             break;
             case "Baron":
-            baronEffect()
+            // baronEffect()
             break;
         case "Handmaid":
             // handmaidEffect()
             break;
         case "Prince":
-            if (deck.length === 0) {
-                player1.currentPlayer = false;
-            }
-            princeEffect()
+            // if (deck.length === 0) {
+            //     player1.currentPlayer = false;
+            // }
+            // princeEffect()
             break;
         case "King":
-            kingEffect()
+            // kingEffect()
             break;
         case "Countess":
             // checkForCountess function created to deal with Countess pre-discard rule
             // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            princessEffect()
+            // princessEffect()
             break;
         default:
             break;
