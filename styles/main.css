@@ -269,11 +269,9 @@ img {
     display: none;
 }
 
-#prince-effect-modal  {
+#prince-effect-modal, #guard-effect-modal {
     background-color: rgba(0,0,0,0.4);
 	position: fixed;
-	top: 50;
-	right: 50;
 	height: 100%;
 	width: 100%;
 	z-index: 1;
@@ -281,6 +279,15 @@ img {
 	overflow: auto;
 	/*If overflow is clipped, a scroll-bar should be added to see the rest of the content*/
     display: none;
+}
+
+#guard-effect-button-div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 25px;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-textbox-large, .modal-textbox-small, .modal-textbox-tiny {
@@ -311,7 +318,7 @@ img {
 
 .modal-textbox-small {
     padding: 15px;
-	height: 50vh;
+	height: 32vh;
 	width: 675px;
 	border-radius: 2px;
     margin: 150px auto;

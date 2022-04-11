@@ -106,6 +106,8 @@ const WINS_NEEDED = 3
 let lastCardPlayed = {}
 // Constant for the heart image for win tokens
 const HEART_IMAGE = "./images/heart.png"
+// Variable for the clickedGuess needed for the guardEffect()
+let clickedGuess
 
 // DOM Object grabs
 // Get the objects for the play button to reveal the board
@@ -156,6 +158,17 @@ const $supplementalEndOfGameMessage = $('#supplemental-end-of-game-message')
 const $princeEffectModal = $('#prince-effect-modal')
 const $princeDiscardPlayer1Card = $('#prince-effect-player1-button')
 const $princeDiscardOpponentCard = $('#prince-effect-opponent-button')
+// Get guard effect modal to display buttons to guess which card the opponent has
+const $guardEffectModal = $('#guard-effect-modal')
+//Get guard guess buttons to select the card you want to guess
+const $guardGuessButtons = $('.guess-button')
+const $guessPriestButton = $('#guess-priest-button')
+const $guessBaronButton = $('#guess-baron-button')
+const $guessHandmaidButton = $('#guess-handmaid-button')
+const $guessPrinceButton = $('#guess-prince-button')
+const $guessKingButton = $('#guess-king-button')
+const $guessCountessButton = $('#guess-countess-button')
+const $guessPrincessButton = $('#guess-princess-button')
 
 // Listeners
 // Set listener to start the game
@@ -177,7 +190,7 @@ $playButton.click(function() {
     setDrawDeckNum()
 }) 
 
-// Set listener to start the game and start the game!
+// Set listener to restart the game!
 // Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, , set current player to player 1
 // If player and opponent points = 0, remove tokens of affection, as a new game has started
 $restartButton.click(function() {
@@ -235,6 +248,15 @@ $playerCard1.click(function() {
             playerCard2 = ''        
         }
     }
+})
+
+// Set listeners for the guard guess buttons
+$guardGuessButtons.click(function() {
+    clickedGuess = $(this).val()
+    //Hide the modal again
+    $guardEffectModal.css('display', 'none')
+    // Call the guardComparison function with the current value of clickedGuess
+    guardComparison(clickedGuess)
 })
 
 // Will discard playerCard2, remove its display from the screen, and set it to an empty string
@@ -322,9 +344,11 @@ function discardCard(aCard) {
         placeCardInDiscardPile(aCard)        
     } else if (player1.currentPlayer) {       
         placeCardInDiscardPile(aCard) 
+        cardTakesEffect(aCard)
         playerCard1 = playerCard2  
         console.log(playerCard1)
-        cardTakesEffect(aCard)
+        // Guard has some special rules that need to be asynchronous, will work on that later
+             
     }
 }
 
@@ -406,7 +430,7 @@ function cardTakesEffect(aCard) {
     console.log('cardTakesEffect testing')
     switch(aCard.name) {
         case "Guard":
-            // guardEffect()
+            guardEffect()
             break;
         case "Priest":
             // priestEffect()
@@ -418,10 +442,10 @@ function cardTakesEffect(aCard) {
             // handmaidEffect()
             break;
         case "Prince":
-            if (deck.length === 0) {
-                player1.currentPlayer = false;
-            }
-            princeEffect()
+            // if (deck.length === 0) {
+            //     player1.currentPlayer = false;
+            // }
+            // princeEffect()
             break;
         case "King":
             // kingEffect()
@@ -441,8 +465,19 @@ function cardTakesEffect(aCard) {
     }
 }
 
+// This function compares the value of the clicked guess with the opponent's current card.  If the two are the same, the opponent is removed from the game and the player receives a point.
+// Might need some asyncronous stuff here to wait for the click, but gonna hack it for now
 function guardEffect() {
-    
+    // reveal the guard guess modal
+    $guardEffectModal.css('display', 'flex')
+}
+
+function guardComparison(aClick) {
+    if (aClick === opponentCard1.name) {
+        console.log('we have a match')
+    } else {
+        console.log('not a match')
+    }
 }
 
 function priestEffect() {
@@ -498,6 +533,7 @@ $princeDiscardPlayer1Card.click(function() {
         playerCard1 = {}
         playerCard2 = {}
         giveOpponentTokenOfAffection()
+        $restartButton.css('display', 'block')
     }
     checkForEmptyDeckWin()
     $princeEffectModal.css('display', 'none')
@@ -520,7 +556,8 @@ $princeDiscardOpponentCard.click(function() {
         $opponentCard1Image.attr('src', '/images/cardback.png')
         $supplementalEndOfGameMessage.text(`Your opponent could not draw from the deck, so you win a token of affection!`)
         $princeEffectModal.css('display', 'none')
-        // givePlayerTokenOfAffection()
+        $restartButton.css('display', 'block')
+        givePlayerTokenOfAffection()
     }    
     checkForEmptyDeckWin()
     $princeEffectModal.css('display', 'none')
