@@ -199,7 +199,7 @@ $restartButton.click(function() {
     drawPlayerCard1()
     player1.currentPlayer = true
     $playerCard2.css('display', 'none')
-
+    $removedCardImage.css('background-image', 'url(/images/cardback.png)')
     playerCard2 = ''
     setDrawDeckNum()
     $endOfGameMessage.text('')
@@ -249,7 +249,7 @@ $playerCard2.click(function() {
 // When the deck is clicked on, will draw a card to playerCard2 and display the block with playerCard2 in it
 $drawDeck.click(function() {
     if(deck.length > 0){
-        if(players[0].currentPlayer){
+        if(player1.currentPlayer){
             drawCard()
             $playerCard2.css('display', 'flex')
         }
@@ -430,7 +430,7 @@ function cardTakesEffect(aCard) {
             // This is the only card that requires this type of rule, which is checked after every draw
             break;
         case "Princess":
-            // princessEffect()
+            princessEffect()
             break;
         default:
             break;
@@ -492,14 +492,18 @@ $princeDiscardPlayer1Card.click(function() {
         playerCard1 = {}
         // giveOpponentTokenOfAffection()
     }
-    player1.currentPlayer = true;   
     checkForEmptyDeckWin()
     $princeEffectModal.css('display', 'none')
-
 })
 // Will select your opponent to discard your current card, immediately drawing from the draw pile, if any cards are left
 $princeDiscardOpponentCard.click(function() {
-    if (deck.length > 1) {
+    if(opponentCard1.name === "Princess") {
+    $supplementalEndOfGameMessage.text('Princess was discarded by opponent, player wins.')
+    player1.currentPlayer = false
+    $restartButton.css('display', 'block')
+    givePlayerTokenOfAffection()
+
+    } else if (deck.length > 1) {
         discardOpponentCard(opponentCard1)
         drawOpponentCard1()
     } else if(deck.length === 1) {
@@ -507,14 +511,11 @@ $princeDiscardOpponentCard.click(function() {
         drawOpponentCard1()
     } else {
         discardCard(opponentCard1)
-
         $opponentCard1Image.attr('src', opponentCard1.image)
-
         $supplementalEndOfGameMessage.text(`Your opponent could not draw from the deck, so you win a token of affection!`)
         $princeEffectModal.css('display', 'none')
         // givePlayerTokenOfAffection()
     }    
-    player1.currentPlayer = true;   
     checkForEmptyDeckWin()
     $princeEffectModal.css('display', 'none')
 })
@@ -542,7 +543,7 @@ function princessEffect() {
         $restartButton.css('display', 'block')
         givePlayerTokenOfAffection()
     }
-}
+} 
 
 // Give the player a token of affection, based off of the card's effects
 function givePlayerTokenOfAffection() {
@@ -588,8 +589,6 @@ function giveOpponentTokenOfAffection() {
 // Reveal the name of the removed card
 // Called at the end of the cardTakesEffect function if 0 cards are left in the deck AFTER the card effect takes place
 function checkForEmptyDeckWin() {
-    $removedCard.text(`The removed card was: ${removedCard.name}`)
-    $removedCardImage.css('background-image', `url(${removedCard.image})`)
     if (deck.length === 0) {
         if (playerCard1.value > opponentCard1.value && player1.currentPlayer) {
             givePlayerTokenOfAffection()
@@ -600,6 +599,8 @@ function checkForEmptyDeckWin() {
             $endOfGameMessage.text('No one wins a token of affection from the Princess. You bore her.')
         }
         $restartButton.css('display', 'block')
+        $removedCard.text(`The removed card was: ${removedCard.name}`)
+        $removedCardImage.css('background-image', `url(${removedCard.image})`)
     }
 }
 
