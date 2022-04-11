@@ -216,6 +216,7 @@ $restartButton.click(function() {
     playerCard2 = ''
     setDrawDeckNum()
     $endOfGameMessage.text('')
+    $supplementalEndOfGameMessage.text('')
     if(opponent.points === 0 && player1.points === 0) {
         $playerWinTokens.text('')
         $opponentWinTokens.text('')
@@ -431,6 +432,7 @@ function cardTakesEffect(aCard) {
     console.log('cardTakesEffect testing')
     switch(aCard.name) {
         case "Guard":
+            // Set currentPlayer to flase to prevent end of deck win from happening
             if (deck.length === 0) {
                 player1.currentPlayer = false;
             }
@@ -446,6 +448,7 @@ function cardTakesEffect(aCard) {
             // handmaidEffect()
             break;
         case "Prince":
+            // Set currentPlayer to flase to prevent end of deck win from happening
             // if (deck.length === 0) {
             //     player1.currentPlayer = false;
             // }
@@ -482,12 +485,19 @@ function guardComparison(aClick) {
         player1.currentPlayer = false
         givePlayerTokenOfAffection()
         $supplementalEndOfGameMessage.text("You guess correctly! You steal your opponent's letter away and burn it.")
-        end
-    } else {
-        $endOfGameMessage.text("You guessed incorrectly. Try harder next time.")
+        $restartButton.css('display', 'block')
+    } else if (aClick !== opponentCard1.name) {
+        $supplementalEndOfGameMessage.text("You guessed incorrectly. Try harder next time.")
+    }
+    if (aClick !== opponentCard1.name && deck.length === 0){
+        player1.currentPlayer = true
+        checkForEmptyDeckWin()
     }
 }
 
+// Not in MVP
+// Allows the user of the priest to look at the opponent's card
+// Not in MVP because the opponent's card is a random dumym card
 function priestEffect() {
 
 }
@@ -511,6 +521,9 @@ function baronEffect() {
     }     
 }
 
+// Not in MVP
+// Prevents the user of the handmaid card from being targeted by an opponent's card effect until the start of their next turn
+// Have a beginning of turn function which will remove the handmaid effect if one is on for the currentPlayer
 function handmaidEffect() {
 
 }
