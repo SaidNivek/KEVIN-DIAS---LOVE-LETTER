@@ -137,6 +137,7 @@ const $drawDeck = $('#draw-deck')
 const $removedCard = $('#removed-card')
 const $cardsremaining = $('#cards-remaining')
 const $removedCardImage = $('#removed-card-image')
+const $flipCard = $('.card-to-flip')
 // Get DOM objects for the spans in the discard pile
 const $discardedGuards = $('#discarded-guard')
 const $discardedPriests = $('#discarded-priest')
@@ -169,6 +170,7 @@ const $guessPrinceButton = $('#guess-prince-button')
 const $guessKingButton = $('#guess-king-button')
 const $guessCountessButton = $('#guess-countess-button')
 const $guessPrincessButton = $('#guess-princess-button')
+
 
 // Listeners
 // Set listener to start the game
@@ -259,7 +261,7 @@ $playerCard1.click(function() {
 $guardGuessButtons.click(function() {
     clickedGuess = $(this).val()
     //Hide the modal again
-    $guardEffectModal.css('display', 'none')
+    $guardEffectModal.fadeOut(1000)
     // Call the guardComparison function with the current value of clickedGuess
     guardComparison(clickedGuess)
 })
@@ -424,7 +426,6 @@ function removeTopCard() {
 }
 
 // This function will draw a card from the deck and place it in players' hand.
-// If not active player (at start of game), will discard 3 cards for set-up purposes
 function drawCard() {
     if(player1.currentPlayer) {
         // Prevent player form drawing cards if player has 2 cards in hand already
@@ -486,6 +487,7 @@ function cardTakesEffect(aCard) {
 // Might need some asyncronous stuff here to wait for the click, but gonna hack it for now
 function guardEffect() {
     // reveal the guard guess modal
+    $guardEffectModal.fadeIn(1000)
     $guardEffectModal.css('display', 'flex')
 }
 
@@ -539,6 +541,7 @@ function handmaidEffect() {
 // Force a player to discard their current card and draw a new one
 // If there are no cards left in the deck, then the player who must draw a card loses, as they have no value to compare for the win
 function princeEffect() {
+    $princeEffectModal.fadeIn(1000) 
     $princeEffectModal.css('display', 'block')
 }
 
@@ -565,7 +568,7 @@ $princeDiscardPlayer1Card.click(function() {
         $restartButton.css('display', 'block')
     }
     checkForEmptyDeckWin()
-    $princeEffectModal.css('display', 'none')
+    $princeEffectModal.fadeOut(1000)
 })
 // Will select your opponent to discard your current card, immediately drawing from the draw pile, if any cards are left
 $princeDiscardOpponentCard.click(function() {
@@ -589,7 +592,7 @@ $princeDiscardOpponentCard.click(function() {
         givePlayerTokenOfAffection()
     }    
     checkForEmptyDeckWin()
-    $princeEffectModal.css('display', 'none')
+    $princeEffectModal.fadeOut(1000)
 })
 
 // This trades your card with the opponents' card
@@ -679,7 +682,7 @@ function checkForEmptyDeckWin() {
         }
         $restartButton.css('display', 'block')
         $removedCard.text(`The removed card was: ${removedCard.name}`)
-        $removedCardImage.css('background-image', `url(${removedCard.image})`)
+        $removedCardImage.attr('src', removedCard.image)
     }
 }
 
