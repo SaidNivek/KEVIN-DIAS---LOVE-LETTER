@@ -69,10 +69,6 @@ body {
     font-family: 'Source Serif Pro', serif;
 }
 
-button {
-    background-image:noneurl('/images/bluevelvet.jpg')
-}
-
 h1 {
     font-size: 88px;
     font-family: 'Lavishly Yours', cursive;
@@ -102,12 +98,7 @@ img {
     height: auto;
 }
 
-.button {
-    background-image: url('/images/bluevelvet.jpg');
-    color: white;
-    font-size: 24px;
-    font-family: 'Source Serif Pro', serif;
-}
+
 
 .gameboard-div {
     display: flex;
@@ -118,13 +109,6 @@ img {
     min-width: 642px;
     justify-content: space-between;
     display: none;
-}
-
-.card-in-hand {
-    height: 340px;
-    width: 250px;
-    margin: 15px 0;
-    box-shadow: 4px 4px;
 }
 
 .deck {
@@ -159,14 +143,15 @@ img {
     flex-direction: column;
     gap: 15px;
     justify-content: space-between;
-
+    height: 340px;
+    width: 250px;
+    margin: 15px 0;
+    box-shadow: 0 0 50px;
+    transition-duration: 1s;
 }
 
-.card-in-hand > * {
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
+.card-in-hand:hover, #draw-deck:hover {
+    box-shadow: 0 0 50px white;
 }
 
 #deck-area-div {
@@ -213,8 +198,6 @@ img {
     background-image: url('/images/background2.jpg');
 }
 
-
-
 #opponent-mat, #player-mat, .deck, #discarded-cards-row-2, #discarded-cards-row-1,
 .win-tokens, .guard-guess, #opponent-card-2, #opponent-win-div, #player-wins-div {
     display: flex;
@@ -252,8 +235,6 @@ img {
 	/*If overflow is clipped, a scroll-bar should be added to see the rest of the content*/
     display: none;
 }
-
-
 
 #prince-effect-modal, #guard-effect-modal {
     background-color: rgba(0,0,0,0.4);
@@ -345,6 +326,18 @@ img {
     padding: 15px;
 }
 
+.button {
+    background-image: url('/images/bluevelvet.jpg');
+    color: white;
+    margin: 5px;
+    padding: 5px;
+    transition-duration: 0.4s;
+    font-size: 24px;
+    font-family: 'Source Serif Pro', serif;
+    box-shadow: 4px 4px 10px black;
+}
+
+
 .rules-button {
     height: 75px;
     width: 225px;
@@ -356,9 +349,10 @@ img {
     font-family: 'Source Serif Pro', serif;
 }
 
-#open-general-rules-modal:hover, #open-card-rules-modal:hover {
+.button:hover {
     background-image: url('/images/background2.jpg');
-    color: black;
+    color: white;
+    box-shadow: 4px 4px 20px white;
 }
 
 #play-button {

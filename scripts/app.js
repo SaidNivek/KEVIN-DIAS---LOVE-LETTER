@@ -84,7 +84,7 @@ const players = [
 
 // Deck array for all of the cards to be contained within it for drawing
 let deck = []
-// Empty object for the removed card, which is removed at the start of game and revealed at the end of the game (stretch)
+// Empty object for the removed card, which is removed at the start of game and revealed at the end of the game
 let removedCard = {}
 // Variables to hold the number of discarded cards, updated throughout the course of a game
 let discardedGuards = 0
@@ -275,6 +275,7 @@ $playerCard2.click(function() {
 
 // When the deck is clicked on, will draw a card to playerCard2 and display the block with playerCard2 in it
 $drawDeck.click(function() {
+    $supplementalEndOfGameMessage.text('')
     if(deck.length > 0){
         if(player1.currentPlayer){
             drawCard()
