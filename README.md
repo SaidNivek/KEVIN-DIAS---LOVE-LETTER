@@ -6,14 +6,21 @@ Browser-based recreation of the card-game Love Letter.  The goal of the game is 
 ## Planning Process
 Create simple structure of HTML elements with basic CSS elements/styling. Create array of objects of cards with basic information (value, name, rule text).  Create deck based on card objects.  Ensure deck has correct number of card values and total cards.  Instantiate player objects (current card, drawn card, active player's turn, total points, more as necessary).  Query DOM elements.  Ensure players are able to interact with DOM elements as needed (draw card from deck, see rules, see card values and rules sections).   Implement turn structure (draw, discard, card effect takes place).  Implement card rules with a dummy opponent.  Implement round end scenarios and point calculations.  Implement card rules with two players (both controlled by the user for now).  Stretch - simple AI for card selection for AI-controlled opponent.
 
-## Wire Frames
+## Game Screens
+### Start Screen
+![image](https://user-images.githubusercontent.com/89223981/163021814-9afd174e-ec64-4ea4-9068-4fd3b46a7660.png)
 ### Game Board
-![image](https://user-images.githubusercontent.com/89223981/162040244-1ee0ac43-e84e-482d-95ff-bc91633828e8.png)
-### Rules Modals / Pop-ins
-![image](https://user-images.githubusercontent.com/89223981/162040403-50961f99-d7e8-4370-8fea-6ecc220e9e7e.png)
-### Guard Guess Area
-![image](https://user-images.githubusercontent.com/89223981/162040499-20062ac2-5b26-457c-a9a6-b16038ca34f8.png)
-
+![image](https://user-images.githubusercontent.com/89223981/163021906-88d1262d-f0ee-4a5f-9c02-9128f17fe68f.png)
+### General Game Rules Modal
+![image](https://user-images.githubusercontent.com/89223981/163022011-cf84bec8-6989-4f2e-bd43-49d39fce4d4b.png)
+### Card-Specific Rules Modal
+![image](https://user-images.githubusercontent.com/89223981/163022081-035a844b-68d5-4184-8528-a6b8a0acbbd3.png)
+### Guard Guess Modal
+![image](https://user-images.githubusercontent.com/89223981/163022203-20671e7c-66ab-4f5f-a21a-c90e3d4000ad.png)
+### Prince Discard Select Modal
+![image](https://user-images.githubusercontent.com/89223981/163022248-2a2fd6ba-ace4-49b1-81a6-be4dec637a2f.png)
+### End-game State
+![image](https://user-images.githubusercontent.com/89223981/163022459-3debad32-702c-4405-b4f3-f36127207904.png)
 
 
 ## User Stories
