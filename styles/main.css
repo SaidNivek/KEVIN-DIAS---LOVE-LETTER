@@ -66,11 +66,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-image: url('/images/background2.jpg');
-    font-family: 'Source Serif Pro', serif;;
-}
-
-button {
-    background-image:noneurl('/images/bluevelvet.jpg')
+    font-family: 'Source Serif Pro', serif;
 }
 
 h1 {
@@ -102,12 +98,7 @@ img {
     height: auto;
 }
 
-.button {
-    background-image: url('/images/bluevelvet.jpg');
-    color: white;
-    font-size: 24px;
-    font-family: 'Source Serif Pro', serif;
-}
+
 
 .gameboard-div {
     display: flex;
@@ -118,13 +109,6 @@ img {
     min-width: 642px;
     justify-content: space-between;
     display: none;
-}
-
-.card-in-hand {
-    height: 340px;
-    width: 250px;
-    margin: 15px 0;
-    box-shadow: 4px 4px;
 }
 
 .deck {
@@ -159,19 +143,21 @@ img {
     flex-direction: column;
     gap: 15px;
     justify-content: space-between;
-
+    height: 340px;
+    width: 250px;
+    margin: 15px 0;
+    box-shadow: 0 0 50px;
+    transition-duration: 1s;
 }
 
-.card-in-hand > * {
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
+.card-in-hand:hover, #draw-deck:hover {
+    box-shadow: 0 0 50px white;
 }
 
 #deck-area-div {
     text-align: center;
     display: none;
+    margin-left: 100px;
 }
 
 #end-of-game-message, #supplemental-end-of-game-message {
@@ -191,7 +177,6 @@ img {
     position: fixed;
     top: 25%;
     left: 25%;
-    border: 1px solid black;
     height: 50%;
     width: 50%;
     padding: 50px;
@@ -199,6 +184,7 @@ img {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    box-shadow: 0 0 100px;
 }
 
 #play-area-mat {
@@ -221,11 +207,6 @@ img {
     text-align: center;
 }
 
-/* #player-card-1-image, #player-card-2-image {
-    width: 250px;
-    height: auto;
-} */
-
 #discarded-card-area {
     display: flex;
     gap: 15px; 
@@ -241,27 +222,13 @@ img {
     justify-content: space-evenly;
 }
 
-#general-rules-modal  {
+.rules-modal {
     background-color: rgba(0,0,0,0.4);
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
-	z-index: 1;
-	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
-	overflow: auto;
-	/*If overflow is clipped, a scroll-bar should be added to see the rest of the content*/
-    display: none;
-}
-
-#card-rules-modal {
-    background-color: rgba(0,0,0,0.4);
-	position: fixed;
-	top: 0;
-	right: 0;
-	height: 100vh;
-	width: 100vw;
 	z-index: 1;
 	/*This puts our modal in front of the body (which has a default z-index setting of `0`*/
 	overflow: auto;
@@ -350,11 +317,42 @@ img {
     font-size: 24px;
 }
 
-#open-general-rules-modal, #open-card-rules-modal {
-    height: 90%;
+#rules-area {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 15px;
+}
+
+.button {
     background-image: url('/images/bluevelvet.jpg');
     color: white;
     margin: 5px;
+    padding: 5px;
+    transition-duration: 0.4s;
+    font-size: 24px;
+    font-family: 'Source Serif Pro', serif;
+    box-shadow: 4px 4px 10px black;
+}
+
+
+.rules-button {
+    height: 75px;
+    width: 225px;
+    background-image: url('/images/bluevelvet.jpg');
+    color: white;
+    margin: 5px;
+    transition-duration: 0.4s;
+    font-size: 24px;
+    font-family: 'Source Serif Pro', serif;
+}
+
+.button:hover {
+    background-image: url('/images/background2.jpg');
+    color: white;
+    box-shadow: 4px 4px 20px white;
 }
 
 #play-button {
@@ -362,17 +360,12 @@ img {
     height: 30%;
     font-size: 64px;
     font-family: 'Lavishly Yours', cursive;
+    transition-duration: 0.4s;
 }
 
-#player-rules-div, #opponent-rules-div {
-    display:flex;
-    flex-direction: column;
-    width: 200px;
-    gap: 15px;
-}
-
-#opponent-rules-div div {
-    transform: rotate(180deg);
+#play-button:hover {
+    background-image: url('/images/bluevelvet.jpg');
+    color: white;
 }
 
 #restart-button, #new-match-button {
