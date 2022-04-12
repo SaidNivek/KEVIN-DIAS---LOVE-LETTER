@@ -174,9 +174,10 @@ const $guessPrincessButton = $('#guess-princess-button')
 // Set listener to start the game
 // Create the deck, remove a card, draw 1 card for the opponent, draw 1 card for the player, discard 3 cards to their piles, set current player to player 1
 $playButton.click(function() {
-    $gameBoard.css('display', 'flex')
-    $startGameDiv.css('display', 'none')
-    $deckAreaDiv.css('display', 'block')
+    // Some slide in/out animations
+    $gameBoard.slideToggle(2000)    
+    $startGameDiv.slideToggle(1000)
+    $deckAreaDiv.slideToggle(2000)
     deck = createDeck()
     removedCard = removeTopCard()
     // Used to discard 3 cards from the top of the deck at beginning of the game
@@ -188,6 +189,8 @@ $playButton.click(function() {
     player1.currentPlayer = true
     $playerCard2.css('display', 'none')
     setDrawDeckNum()
+    $gameBoard.css('display', 'flex')
+    $deckAreaDiv.css('display', 'block')
 }) 
 
 // Set listener to restart the game!
@@ -225,17 +228,18 @@ $restartButton.click(function() {
 
 // Set listeners to open the general and card rule modals
 $generalRulesOpenButton.click(function() {
-    $generalRulesModal.css('display', 'block')
+    $generalRulesModal.slideToggle(1000)
 })
 $cardRulesOpenButton.click(function() {
-    $cardRulesModal.css('display', 'block')
+    $cardRulesModal.slideToggle(1000)
+    
 })
 // Set listeners to close the general and card rule modals
 $generalRulesCloseButton.click(function() {
-    $generalRulesModal.css('display', 'none')
+    $generalRulesModal.slideToggle(1000)
 })
 $cardRulesCloseButton.click(function() {
-    $cardRulesModal.css('display', 'none')
+    $cardRulesModal.slideToggle(1000)
 })
 
 // Set listeners for the player cards to select and discard them
@@ -735,7 +739,7 @@ function resetDiscardPiles() {
 //     Confirmation of card to discard each turn
 //     Confirmation of Guard Guess choice
 //     Check to see if all of one card has been played already, removing the option of that card to be guessed with a Guard Guess
-//     Create a pop-up modal for the guard guess that only appears when the guard is discarded, asking for your selection
+//         Might not need, as guessing incorrectly on purpose can be a tactic against human players
 //     Play against yourself with two active hands
 //     Play against an AI who makes basic decisions (as simple as possible, with very few AI logic rules)
 //     Priest - Reveal the opponent's dummy card for 5 seconds
