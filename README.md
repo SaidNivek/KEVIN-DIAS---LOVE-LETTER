@@ -49,13 +49,13 @@ This project used HTML, CSS, JavaScript, and some JQuery.
 ### Start Screen
 The start screen has the background of the game, which is light on story.  The Play button will begin the game.  The two rules buttons in the top-right corner will display pop-ups of the rules.  The General Game Rules button will display a modal that has the rules and goals of the game itself.  The Card-Specific Rules button will display a modal that has the rules that pertain to the specific cards, with slightly more detail than that of the cards themselves.
 ![image](https://user-images.githubusercontent.com/89223981/163021814-9afd174e-ec64-4ea4-9068-4fd3b46a7660.png)
+
 ### Game Board
 The Game Board has several pieces.
 - Section 1 - The user will click on the top deck to draw, if they have only 1 card in hand.  The bottom card in this section represents the randomly removed card, which causes some amount of randomness to occur within each game.
 - Section 2 - This is the user's play area.  The left-most card is the player's first card.  When they draw from the deck, they will have two cards in hand (see 2nd image below).  The user will be able to click on one of these cards to discard it and have that card's rule take effect.  The Player Wins section will hold tokens of affection (hearts).  When one player reaches 3 hearts, they win the overall game.
 - Section 3 - The opponent's section is the same as the Player's, but smaller.  The opponent will not play any cards in this MVP.
 - Section 4 - The 3 cards that are discarded at the start of the game are tallied here.  As cards are discarded, the total number discarded will be updated.  This is useful to be able to interact more effectively with certain card rule effects and may help to strategize/win the game.
-
 ![image](https://user-images.githubusercontent.com/89223981/163026556-96c137dc-941c-478b-84c0-c28d4eb6fc6c.png)
 ![image](https://user-images.githubusercontent.com/89223981/163027058-bfeaf5b7-503a-4cb9-b851-d51431f89999.png)
 
@@ -77,7 +77,7 @@ The game is over when one player wins 3 tokens of affection (hearts) from the Pr
 
 ## Installation Instructions
 To play this game, please follow the below link to play it in your browser:
-LINK GOES HERE
+https://saidnivek.github.io/KEVIN-DIAS---LOVE-LETTER/
 
 ## Unsolved Problems
 - The removed card has some strange issues with being clipped, not resizing down to a smaller height/width when revealed at the end of the game.  
