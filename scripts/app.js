@@ -217,7 +217,7 @@ $restartButton.click(function() {
     drawPlayerCard1()
     player1.currentPlayer = true
     $playerCard2.css('display', 'none')
-    $removedCardImage.css('background-image', 'url(/images/cardback.png)')
+    $removedCardImage.css('background-image', 'url(../images/cardback.png)')
     playerCard2 = ''
     setDrawDeckNum()
     $endOfGameMessage.text('')
