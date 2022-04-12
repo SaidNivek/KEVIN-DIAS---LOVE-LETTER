@@ -65,7 +65,7 @@ body {
     height: 100vh;
     justify-content: space-between;
     align-items: center;
-    background: url('/images/background2.jpg');
+    background-image: url('../images/background2.jpg');
     font-family: 'Source Serif Pro', serif;
 }
 
@@ -114,7 +114,7 @@ img {
     height: 250px;
     width: 250px;
     margin: 15px;
-    background-image: url('/images/cardback.png');
+    background-image: url('../images/cardback.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -133,7 +133,7 @@ img {
     height: 75px;
     width: 250px;
     border: 1px solid black;
-    background: url('/images/mahogany.jpg');
+    background-image: url('../images/mahogany.jpg');
     color: white;
 }
 
@@ -265,7 +265,7 @@ img {
     /*This will set the margins for the top and the bottom to 150px (or larger). The right and left will automatically set themselves (and keep the box centered horizontally).*/
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	/*This will give the box some depth.*/
-    background-image: url('/images/parchment.jpg');
+    background-image: url('../images/parchment.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -326,7 +326,7 @@ img {
 }
 
 .button {
-    background-image: url('/images/bluevelvet.jpg');
+    background-image: url('../images/bluevelvet.jpg');
     color: white;
     margin: 5px;
     padding: 5px;
@@ -340,7 +340,7 @@ img {
 .rules-button {
     height: 75px;
     width: 225px;
-    background-image: url('/images/bluevelvet.jpg');
+    background-image: url('../images/bluevelvet.jpg');
     color: white;
     margin: 5px;
     transition-duration: 0.4s;
@@ -349,7 +349,7 @@ img {
 }
 
 .button:hover {
-    background-image: url('/images/background2.jpg');
+    background-image: url('../images/background2.jpg');
     color: white;
     box-shadow: 4px 4px 20px white;
 }
@@ -363,7 +363,7 @@ img {
 }
 
 #play-button:hover {
-    background-image: url('/images/bluevelvet.jpg');
+    background-image: url('../images/bluevelvet.jpg');
     color: white;
 }
 
