@@ -179,7 +179,7 @@ img {
     height: 50%;
     width: 50%;
     padding: 50px;
-    background-image: url('/images/parchment.jpg');
+    background-image: url('../images/parchment.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
