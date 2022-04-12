@@ -133,7 +133,7 @@ img {
     height: 75px;
     width: 250px;
     border: 1px solid black;
-    background-image: url('/images/mahogany.jpg');
+    background: url('/images/mahogany.jpg');
     color: white;
 }
 
