@@ -98,8 +98,6 @@ img {
     height: auto;
 }
 
-
-
 .gameboard-div {
     display: flex;
     flex-direction: column;
@@ -120,6 +118,7 @@ img {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    transition: all 0.8s ease;
 }
 
 .win-tokens {
@@ -146,7 +145,7 @@ img {
     height: 340px;
     width: 250px;
     margin: 15px 0;
-    box-shadow: 0 0 50px;
+    box-shadow: 0 0 25px;
     transition-duration: 1s;
 }
 
@@ -257,7 +256,7 @@ img {
     align-items: center;
 }
 
-.modal-textbox-large, .modal-textbox-small, .modal-textbox-tiny {
+.modal-textbox-large, .modal-textbox-medium, .modal-textbox-tiny {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -283,9 +282,9 @@ img {
     overflow-y: auto;
 }
 
-.modal-textbox-small {
+.modal-textbox-medium {
     padding: 15px;
-	height: 32vh;
+	height: 35vh;
 	width: 675px;
 	border-radius: 2px;
     margin: 150px auto;
