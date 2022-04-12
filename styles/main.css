@@ -194,7 +194,7 @@ img {
 }
 
 #play-button {
-    background-image: url('images/background2.jpg');
+    background-image: url('../images/background2.jpg');
 }
 
 #opponent-mat, #player-mat, .deck, #discarded-cards-row-2, #discarded-cards-row-1,
